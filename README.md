@@ -1,1 +1,4 @@
-# inf385t
+# INF385T
+
+Group Members:
+Albert Joe
