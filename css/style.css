@@ -1,0 +1,23 @@
+/*Color*/
+:root {
+    --black: #101010;
+    --green: #2F362F;
+    --beige: #edeade;
+    --grey: #C7C7C7;
+    --yellow: #FFD130;
+}
+
+/*Font*/
+:root { font-family: 'Inter', sans-serif; }
+@supports (font-variation-settings: normal) {
+  :root { font-family: 'Inter var', sans-serif; }
+}
+
+body {font-family: 'Inter', sans-serif;
+}
+
+h1 {font-size: 4rem; font-weight: 700;}
+
+h2 {font-size: 3rem; font-weight: 700;}
+
+h3 {font-size: 1.75rem; font-weight: 700; color:var(--black)}
