@@ -16,7 +16,7 @@
 body {font-family: 'Inter', sans-serif;
 }
 
-h1 {font-size: 4rem; font-weight: 700;}
+h1 {font-size: 4rem; font-weight: 700; color: var(--beige)}
 
 h2 {font-size: 3rem; font-weight: 700;}
 
@@ -149,4 +149,16 @@ body {
   color: black; /* Change label text color to blue */
 }
 
+/* Hero Image */
+.hero-image{
+  background-position-y: 56px;
+  background-image: url(../img/Banner01.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
 
+.hero-text {
+  padding: 8rem 9.87rem;
+  text-align: left;
+}
