@@ -149,7 +149,8 @@ body {
   color: black; /* Change label text color to blue */
 }
 
-/* Hero Image */
+/* Homepage */
+  /* Hero Image */
 .hero-image{
   background-position-y: 56px;
   background-image: url(../img/Banner01.png);
@@ -161,4 +162,17 @@ body {
 .hero-text {
   padding: 8rem 9.87rem;
   text-align: left;
+}
+
+.homepage-text {
+  padding: 3rem 9.87rem;
+  text-align:left;
+}
+
+#feature {
+  background-color: var(--beige);
+}
+
+#contact {
+  background-color: var(--green);
 }
