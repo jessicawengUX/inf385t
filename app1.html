@@ -8,46 +8,21 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     
-    <style>
-        /* Custom CSS for the fixed top navbar and full-height sidebar */
-        .container-fluid {
-            padding-left: 0;
-            padding-right: 0;
-        }
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
 
-        #navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-        }
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
 
-        #sidebar {
-            position: fixed;
-            top: 56px; /* Adjust the top offset to match the navbar height */
-            left: 0;
-            height: 100%;
-            width: 250px; /* Adjust the width as needed */
-            z-index: 1;
-            padding-top: 20px;
-            padding-right: 10px;
-            background-color: #f8f9fa;
-        }
-
-        #content {
-            margin-left: 250px; /* Adjust to match the sidebar width */
-            margin-top: 56px; /* Adjust to match the navbar height */
-            padding: 20px;
-        }
-    </style>
 </head>
 <body>
 
   <!-- Fixed Top Navbar -->
   <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
-          <a class="navbar-brand ms-3" href="index.html">Ammo Forecast Tool</a>
+          <a class="navbar-brand ms-3" href="index.html">Ammunition Forecast Tool</a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
           </button>
@@ -65,7 +40,7 @@
   </nav>
 
   <!-- Full-Height Sidebar -->
-  <div id="sidebar">
+  <div id="sidebar" class="bg-custom-medium">
     <ul class="nav flex-column">
         <li class="nav-item">
             <a class="nav-link active" href="#">
@@ -94,14 +69,25 @@
   <br>
   <br>
 
-  <div id="content">
+  <div class="container">
+    <div class="progress-line">
+        <div class="checkpoint"></div>
+        <div class="checkpoint"></div>
+        <div class="checkpoint"></div>
+    </div>
     <div class="selection-container mt-5">
-      <p>Please Select:</p>
-      <button class="btn btn-primary mb-2" onclick="handleSelect(1)">Option 1</button>
-      <button class="btn btn-primary mb-2" onclick="handleSelect(2)">Option 2</button>
-      <button class="btn btn-primary mb-2" onclick="handleSelect(3)">Option 3</button>
+        <p class="mb-3"><strong style="font-size: 24px; margin-right: 820px;">Select Event Type:</strong></p>
+        <div class="btn-group text-center">
+            <button class="btn btn-primary btn-lg rounded mb-3" onclick="handleSelect(1)">Individual</button>
+            <button class="btn btn-primary btn-lg rounded mb-3" onclick="handleSelect(2)">Crew</button>
+            <button class="btn btn-primary btn-lg rounded mb-3" onclick="handleSelect(3)">Collective</button>
+        </div>
     </div>
 </div>
+
+
+
+
 
 
 

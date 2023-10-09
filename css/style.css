@@ -21,3 +21,102 @@ h1 {font-size: 4rem; font-weight: 700;}
 h2 {font-size: 3rem; font-weight: 700;}
 
 h3 {font-size: 1.75rem; font-weight: 700; color:var(--black)}
+
+
+.container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #101010;
+}
+
+#sidebar {
+  position: fixed;
+  top: 56px; /* Adjust the top offset to match the navbar height */
+  left: 0;
+  height: 100%;
+  width: 250px; /* Adjust the width as needed */
+  z-index: 1;
+  padding-top: 20px;
+  padding-right: 10px;
+  background-color: #2F362F;
+}
+
+#content {
+  margin-left: 250px; /* Adjust to match the sidebar width */
+  margin-top: 56px; /* Adjust to match the navbar height */
+  padding: 20px;
+}
+
+  /* Added CSS to increase space between buttons */
+.btn-group {
+  justify-content: space-between;
+  gap: 40px;
+  width: 1200px;
+  height: 50px;
+  margin-left: 10%;
+}
+
+.btn {
+  text-align: center;
+  line-height: 0;
+  color: black;        /* Text color for the active link */
+  background-color: whitesmoke; /* Background color for the active link */
+  border: 2px solid black; /* Change the outline color to red */
+}
+
+/* styles.css */
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: flex-start; /* Align items to the top of the page */
+  height: 100vh; /* Ensure full viewport height */
+  margin: 0; /* Remove default body margin */
+}
+
+.container {
+  text-align: center; /* Center the contents inside the container */
+}
+
+
+.progress-line {
+  width: 100%;
+  height: 1px;
+  background-color: #ccc;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1px;
+  margin-left: 10%;
+}
+
+.checkpoint {
+  width: 20px;
+  height: 20px;
+  background-color: #007bff;
+  border-radius: 50%;
+}
+
+/* Highlight the active link by changing the background color */
+.nav-link.active {
+  color: black;        /* Text color for the active link */
+  background-color: whitesmoke; /* Background color for the active link */
+  font-weight: bold;
+}
+
+
+.nav-link {
+  color: whitesmoke; /* Change this color for the non-active links */
+  font-weight: bold;
+}
+
+
