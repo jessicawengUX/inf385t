@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Fixed Top Navbar and Full-Height Sidebar</title>
 
     <!-- Bootstrap CSS -->
@@ -17,73 +17,85 @@
     <link rel="stylesheet" href="css/style.css">
 
 </head>
+
 <body>
 
-  <!-- Fixed Top Navbar -->
-  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container-fluid">
-          <a class="navbar-brand ms-3" href="index.html">Ammunition Forecast Tool</a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-              <ul class="navbar-nav ms-auto">
-                  <li class="nav-item active">
-                      <a class="nav-link" href="login.html">Login</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link" href="registration.html">Register</a>
-                  </li>
-              </ul>
-          </div>
-      </div>
-  </nav>
+<!-- Top Navbar -->
+<nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-3" href="index.html">Ammunition Forecast Tool</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="registration.html">Register</a>
+                    </li>
+                </ul>
+            </div>
+    </div>
+</nav>
 
-  <!-- Full-Height Sidebar -->
-  <div id="sidebar" class="bg-custom-medium">
+<!-- Sidebar -->
+<div id="sidebar" class="bg-custom-medium">
     <ul class="nav flex-column">
         <li class="nav-item">
-            <a class="nav-link active" href="#">
-                Create Event
-            </a>
+            <a class="nav-link active" href="#"> Create Event </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
-                My Events
-            </a>
+            <a class="nav-link" href="#"> My Events </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
-                FAQs
-            </a>
+            <a class="nav-link" href="#"> FAQs </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">
-                Contact Us
-            </a>
+            <a class="nav-link" href="#"> Contact Us</a>
         </li>
     </ul>
-  </div>
+</div>
 
-  <br>
-  <br>
-  <br>
+<br>
+<br>
+<br>
 
-  <div class="container">
+<div class="container">
     <div class="progress-line">
         <div class="checkpoint"></div>
         <div class="checkpoint"></div>
         <div class="checkpoint"></div>
     </div>
     <div class="selection-container mt-5">
-        <p class="mb-3"><strong style="font-size: 24px; margin-right: 820px;">Select Event Type:</strong></p>
+        <p class="mb-3"><strong style="font-size: 24px; margin-right: 695px;">Select Event Type:</strong></p>
         <div class="btn-group text-center">
             <button class="btn btn-primary btn-lg rounded mb-3" onclick="handleSelect(1)">Individual</button>
             <button class="btn btn-primary btn-lg rounded mb-3" onclick="handleSelect(2)">Crew</button>
             <button class="btn btn-primary btn-lg rounded mb-3" onclick="handleSelect(3)">Collective</button>
         </div>
     </div>
-</div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-5 offset-md-2"> 
+                <div class="mb-3">
+                    <label for="dropdown" class="form-label1">Weapon Type</label>
+                    <select class="form-select" id="dropdown">
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        <option value="option3">Option 3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col-md-3"> 
+                <div class="mb-3">  
+                    <label for="textBox" class="form-label2">Number to Train</label>
+                    <input type="text" class="form-control" id="textBox" placeholder="Enter text" style="width: 100%;"> 
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
