@@ -7,53 +7,64 @@
   <meta name="keywords" content="HTML, CSS, JavaScript">
   <meta name="author" content=“Guineu”>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
+    
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="css/style.css">
   <!--Inter Font-->
   <link rel="preconnect" href="https://rsms.me/"> 
   <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-  <!--Bootstrap-->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
-  <!--Header-->
-  <div class="navigation">
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Ammunition Forecast Tool</a>
-            <div class="d-flex justify-content-end">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="login.html">Log In</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="registration.html">Register</a>
-              </li>
+  <!-- Top Navbar * -->
+  <nav id="navbar" class="navbar navbar-expand-lg navbar-dark --black">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-3" href="index.html">Ammunition Forecast Tool</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="registration.html">Register</a>
+                </li>
             </ul>
-          </div>
         </div>
-      </nav>
     </div>
+  </nav>
 
 <!--Banner-->
-    <div class ="container-fluid" style="background-image: url('img/Banner\ 01.png');">
-      <h1 style="color:var(--beige);">Streamline Ammo Planning</h1>
+  <div class ="position-relative hero-image container-fluid" style="margin-top: 56px;" >
+    <div class="hero-text">
+      <h1>Streamline Ammo Planning</h1>
       <p style="color:var(--beige);">Ammunition Forecast Tool provides a fast and reliable way to calculate and store the ammunition requirements for all live fire training events.</p>
       <a href="app1.html">
         <button type="button" class="btn btn-lg" style="border-radius: 0.25rem; background: var(--beige); box-shadow: 4px 4px 10px 0px;" >
-          Create Training Event 
+              Create Training Event 
         </button>
       </a>
     </div>
+  </div>
 
 <!--Feature-->
-<div class="m-5" style="background-color: var(--beige);">
+<div id="feature" class="container-fluid homepage-text">
   <h2 style="text-align: center;">One Stop Ammo Calculator</h2><br>
   <div class="row row-cols-1 row-cols-md-3 g-3">
     <div class="col">
       <div class="card">
-        <img src="img/icon/feature01.svg" class="card-img-left" height="60px" width="60px" alt="...">
+        <img src="img/icon/feature01.svg" class="card-img-left" height="60px" width="60px" alt="a logo represent planning board">
         <div class="card-body">
           <h5 class="card-title">Efficient Planning</h5>
           <p class="card-text">Just select and input number to train, and we'll calculate for youl</p>
@@ -62,7 +73,7 @@
     </div>
     <div class="col">
       <div class="card">
-        <img src="img/icon/feature02.svg" class="card-img-left" height="60px" width="60px" alt="...">
+        <img src="img/icon/feature02.svg" class="card-img-left" height="60px" width="60px" alt="a logo with bar chart diagram">
         <div class="card-body">
           <h5 class="card-title">One-click Reporting</h5>
           <p class="card-text">Click to download your result for instant report generation.</p>
@@ -71,7 +82,7 @@
     </div>
     <div class="col">
       <div class="card">
-        <img src="img/icon/feature03.svg" class="card-img-left" height="60px" width="60px" alt="...">
+        <img src="img/icon/feature03.svg" class="card-img-left" height="60px" width="60px" alt="a line connect three square from left to right and top to down where ends with an arrow pointing to the left">
         <div class="card-body">
           <h5 class="card-title">Event Managing</h5>
           <p class="card-text">Organize and manage from scheduling to resource allocations.</p>
@@ -85,7 +96,7 @@
 </div>
 
   <!--Contact Us-->
-<div class="container text-center"  style="background-color: var(--green);">
+<div id="contact" class="container-fluid homepage-text">
   <div class="row align-items-center">
     <div class="col">
       <h2 style="color: var(--beige)">Contact Us</h2>
