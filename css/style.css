@@ -81,37 +81,6 @@ body {
   padding: 20px;
 }
 
-/* Button Section */
-.btn-group {
-  justify-content: space-between;
-  gap: 40px;
-  width: 1100px;
-  height: 50px;
-  margin-left: 15%;
-}
-
-.btn {
-  text-align: center;
-  line-height: 0;
-  color: black;        /* Text color for the active link */
-  background-color: whitesmoke; /* Background color for the active link */
-  border: 2px solid black; /* Change the outline color to red */
-}
-
-.btn:hover {
-  background-color: yellow;
-  border: 2px solid black;
-  color: black;
-}
-
-.btn:focus, .btn:active {
-  background-color: yellow;
-  border: 2px solid black;
-  outline: none; /* Remove the default focus outline */
-  box-shadow: none; /* Remove the default focus box-shadow */
-}
-
-
 /* Progress Line */
 .progress-line {
   width: 50%;
@@ -136,17 +105,73 @@ body {
   background-color: yellow;
 }
 
+/* Button Section */
+.btn-group {
+  justify-content: space-between;
+  gap: 40px;
+  width: 800px;
+  height: 50px;
+  margin-left: 15%;
+}
+
+.btn {
+  text-align: center;
+  line-height: 0;
+  color: black;        /* Text color for the active link */
+  background-color: #EDEADF; /* Background color for the active link */
+  border: 2px solid black; /* Change the outline color to red */
+  font-size: 16px;
+}
+
+.btn:hover {
+  background-color: yellow;
+  border: 2px solid black;
+  color: black;
+}
+
+.btn:focus, .btn:active {
+  background-color: yellow;
+  border: 2px solid black;
+  outline: none; /* Remove the default focus outline */
+  box-shadow: none; /* Remove the default focus box-shadow */
+}
+
+
+
+/* Form Section */
+.form-label1, .form-label2 {
+  font-weight: bold; 
+  color: black; 
+  font-size: 16px;
+}
 
 .form-label1 {
-  margin-right: 410px; /* Add right margin to create space between label and input */
-  font-weight: bold; /* Apply bold font-weight to the labels */
-  color: black; /* Change label text color to blue */
+  margin-right: 400px; 
 }
 
 .form-label2 {
-  margin-right: 170px; /* Add right margin to create space between label and input */
-  font-weight: bold; /* Apply bold font-weight to the labels */
-  color: black; /* Change label text color to blue */
+  margin-right: 115px;
 }
+
+.form-select, .form-control {
+  border-width: 2px; 
+  border-color: black; 
+  height: 40px; 
+}
+
+.form-select{
+  width: 500px;
+}
+
+.container-section {
+  max-width: 800px;
+  border: none; 
+  padding: 10px;
+  margin-left: 340px;
+  background-color: #edeade;
+}
+
+
+
 
 
