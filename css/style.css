@@ -49,6 +49,16 @@ body {
   background-color: #101010;
 }
 
+.login-link {
+  margin-right: 10px; /* Adjust the right margin for the "Login" link */
+  padding: 5px 10px; /* Add padding to create space around the text */
+  border-radius: 5px; /* Add rounded corners to the border */
+  color: black !important; /* Change text color */
+  background-color: yellow;
+  font-weight: normal !important;
+
+}
+
 /* Sidebar Section */
 #sidebar {
   position: fixed;
@@ -91,7 +101,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 1px;
-  margin-left: 35%;
+  margin-left: 30%;
   margin-top: 10px;
   background-color: black;
 }
