@@ -181,16 +181,5 @@ body {
   background-color: #edeade;
 }
 
-/* Homepage */
-  /* Hero Image */
-.hero-image{
-  background-position-y: 56px;
-  background-image: url(../img/Banner01.png);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-
 
 
