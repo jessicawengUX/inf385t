@@ -16,11 +16,20 @@
 body {font-family: 'Inter', sans-serif;
 }
 
-h1 {font-size: 4rem; font-weight: 700; color: var(--beige)}
+h1 {font-size: 4rem; 
+  font-weight: 700; 
+  color: var(--beige)}
 
-h2 {font-size: 3rem; font-weight: 700;}
+h2 {font-size: 3rem; 
+  font-weight: 700;}
 
-h3 {font-size: 1.75rem; font-weight: 700; color:var(--black)}
+h3 {font-size: 1.75rem; 
+  font-weight: 700; 
+  color:var(--black)}
+
+h4 {font-size: 1.25rem; 
+  font-weight: 300; 
+  color:var(--beige)}
 
 body {
   display: flex;
@@ -78,6 +87,27 @@ body {
   color: var(--beige);
 }
 
+/* Buttons */
+.lg-button-light {
+  padding: 12px 20px; /* Add padding to create space around the text */
+  border-radius: 4px; /* Add rounded corners to the border */
+  color:var(--green) !important; 
+  background-color: var(--beige);
+  font-weight: bold !important;
+}
 
-
+.btn-bd-primary {
+  --bs-btn-font-weight: 700;
+  --bs-btn-color: var(--green);
+  --bs-btn-bg: var(--beige);
+  --bs-btn-border-color: var(--bd-violet-bg);
+  --bs-btn-hover-color: var(--green);
+  --bs-btn-hover-bg:#e8e1cc;
+  --bs-btn-hover-border-color: #{shade-color(var(--black), 10%)};
+  --bs-btn-focus-shadow-rgb: var(--black);
+  --bs-btn-focus-bg:var(--bs-btn-hover-bg);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: #{shade-color($bd-violet, 20%)};
+  --bs-btn-active-border-color: #{shade-color(var(--black), 20%)};
+}
 
