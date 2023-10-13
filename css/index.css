@@ -89,14 +89,12 @@ body {
 
 /* Buttons */
 .lg-button-light {
+  font-size: 1.25rem;
   padding: 12px 20px; /* Add padding to create space around the text */
   border-radius: 4px; /* Add rounded corners to the border */
-  color:var(--green) !important; 
-  background-color: var(--beige);
-  font-weight: bold !important;
 }
 
-.btn-bd-primary {
+.btn-bd-primary-light {
   --bs-btn-font-weight: 700;
   --bs-btn-color: var(--green);
   --bs-btn-bg: var(--beige);
@@ -107,7 +105,54 @@ body {
   --bs-btn-focus-shadow-rgb: var(--black);
   --bs-btn-focus-bg:var(--bs-btn-hover-bg);
   --bs-btn-active-color: var(--bs-btn-hover-color);
-  --bs-btn-active-bg: #{shade-color($bd-violet, 20%)};
+  --bs-btn-active-bg: var(--bs-btn-hover-bg);
   --bs-btn-active-border-color: #{shade-color(var(--black), 20%)};
 }
 
+.lg-button-dark {
+  padding: 12px 20px; /* Add padding to create space around the text */
+  border-radius: 4px; /* Add rounded corners to the border */
+}
+
+.btn-bd-primary-dark {
+  font-size: 1.25rem;
+  --bs-btn-font-weight: 700;
+  --bs-btn-color: var(--beige);
+  --bs-btn-bg: var(--green);
+  --bs-btn-border-color: var(--bd-violet-bg);
+  --bs-btn-hover-color: var(--beige);
+  --bs-btn-hover-bg:#2c423b;
+  --bs-btn-hover-border-color: #{shade-color(var(--black), 10%)};
+  --bs-btn-focus-shadow-rgb: var(--black);
+  --bs-btn-focus-bg:var(--bs-btn-hover-bg);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: var(--bs-btn-hover-bg);
+  --bs-btn-active-border-color: #{shade-color(var(--black), 20%)};
+}
+
+
+/* feature-card*/
+#feature-bg{
+  background-color: var(--beige);
+}
+.card-style {
+padding: 1.87rem 1.25rem;
+gap: 0.75rem;
+text-align: left;
+background-color:var(--beige);
+color: var(--green);
+border-color: var(--green);
+border-radius: 0.75rem;
+border-width: 3px;}
+
+/* contact*/
+#contact-bg{
+  background-color: var(--green);
+  color:var(--beige);
+}
+
+/* footer*/
+#footer{
+  background-color: var(--black);
+  color:var(--beige);
+}
