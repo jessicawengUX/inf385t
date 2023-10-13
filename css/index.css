@@ -1,11 +1,81 @@
-/* Homepage */
-  /* Hero Image */
+/*Color*/
+:root {
+  --black: #101010;
+  --green: #2F362F;
+  --beige: #edeade;
+  --grey: #C7C7C7;
+  --yellow: #FFD130;
+}
+
+/*Font*/
+:root { font-family: 'Inter', sans-serif; }
+@supports (font-variation-settings: normal) {
+:root { font-family: 'Inter var', sans-serif; }
+}
+
+body {font-family: 'Inter', sans-serif;
+}
+
+h1 {font-size: 4rem; font-weight: 700; color: var(--beige)}
+
+h2 {font-size: 3rem; font-weight: 700;}
+
+h3 {font-size: 1.75rem; font-weight: 700; color:var(--black)}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: flex-start; /* Align items to the top of the page */
+  height: 100vh; /* Ensure full viewport height */
+  margin: 0; /* Remove default body margin */
+}
+
+.container {
+  text-align: center;
+}
+
+/* .container-fluid {
+  padding-left: 0;
+  padding-right: 0;
+} */
+
+#brandfont {
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#navbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: var(--black);
+}
+
+.login-link {
+  margin-right: 10px; /* Adjust the right margin for the "Login" link */
+  padding: 5px 10px; /* Add padding to create space around the text */
+  border-radius: 5px; /* Add rounded corners to the border */
+  color:var(--black) !important; /* Change text color */
+  background-color: var(--yellow);
+  font-weight: normal !important;
+
+}
+
+
+/* Hero Image */
 .hero-image{
-  background-position-y: 56px;
+  position: absolute;
   background-image: url(../img/Banner01.png);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+.hero-text{
+  text-align: left;
+  color: var(--beige);
 }
 
 

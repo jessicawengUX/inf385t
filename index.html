@@ -17,7 +17,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"></script>
     
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="css/style.css">
+  <!-- <link rel="stylesheet" href="css/style.css"> -->
+  <link rel="stylesheet" href="css/index.css">
+
   <!--Inter Font-->
   <link rel="preconnect" href="https://rsms.me/"> 
   <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
@@ -25,20 +27,20 @@
 </head>
 
 <body>
-  <!-- Top Navbar * -->
+  <!-- Header Navbar * -->
   <nav id="navbar" class="navbar navbar-expand-lg navbar-dark --black">
-    <div class="container-fluid">
-        <a class="navbar-brand ms-3" href="index.html">Ammunition Forecast Tool</a>
+    <div class="container">
+        <a id="brandfont" class="navbar-brand ms-3" href="index.html">Ammunition Forecast Tool</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="login.html">Login</a>
+                    <a class="nav-link" href="login.html" type="button">Login</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="registration.html">Register</a>
+                    <a class="nav-link login-link" href="registration.html">Get Started</a>
                 </li>
             </ul>
         </div>
@@ -46,10 +48,10 @@
   </nav>
 
 <!--Banner-->
-  <div class ="position-relative hero-image container-fluid" style="margin-top: 56px;" >
-    <div class="hero-text">
+  <div class ="position-relative hero-image container-fluid">
+    <div class="p-4 p-md-5 mb-4 hero-text">
       <h1>Streamline Ammo Planning</h1>
-      <p style="color:var(--beige);">Ammunition Forecast Tool provides a fast and reliable way to calculate and store the ammunition requirements for all live fire training events.</p>
+      <p>Ammunition Forecast Tool provides a fast and reliable way to calculate and store the ammunition requirements for all live fire training events.</p>
       <a href="app1.html">
         <button type="button" class="btn btn-lg" style="border-radius: 0.25rem; background: var(--beige); box-shadow: 4px 4px 10px 0px;" >
               Create Training Event 
@@ -59,7 +61,7 @@
   </div>
 
 <!--Feature-->
-<div id="feature" class="container-fluid homepage-text">
+<div id="feature" class="container homepage-text">
   <h2 style="text-align: center;">One Stop Ammo Calculator</h2><br>
   <div class="row row-cols-1 row-cols-md-3 g-3">
     <div class="col">
@@ -96,7 +98,7 @@
 </div>
 
   <!--Contact Us-->
-<div id="contact" class="container-fluid homepage-text">
+<div id="contact" class="container homepage-text">
   <div class="row align-items-center">
     <div class="col">
       <h2 style="color: var(--beige)">Contact Us</h2>
