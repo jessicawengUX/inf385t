@@ -31,57 +31,57 @@
   <nav id="navbar" class="navbar navbar-expand-lg navbar-dark --black">
     <div class="container-fluid">
         <a id="brandfont" class="navbar-brand ms-3" href="index.html">Ammunition Forecast Tool</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="login.html" type="button">Login</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link login-link" href="registration.html">Get Started</a>
-                </li>
-            </ul>
+        </button> -->
+        <div>
+          <ul class="navbar-nav navi-pills me-3">
+            <li class="nav-item showHide">
+              <a id="header-btn-bk" class="nav-link" href="login.html" type="button">Log In</a>
+            </li>
+            <li class="nav-item">
+              <a id="header-btn-yellow" class="nav-link" href="registration.html">Sign Up</a>
+            </li>
+          </ul>
         </div>
     </div>
   </nav>
 
-<!--Banner-->
+<!--HeroImage-->
   <div class ="position-relative hero-image container-fluid">
-    <div class="p-5 p-md-5 mb-5 hero-text">
+    <div class="content-hero hero-text">
       <h1>Streamline Ammo Planning</h1>
       <h4>
         Ammunition Forecast Tool provides a fast and reliable way to calculate and store the ammunition requirements for all live fire training events.
       </h4><br>
       <a href="app1.html">
         <button type="button" class="btn btn-bd-primary-light lg-button-light">
-          Launch Caculator 
+          Create Training Event
         </button>
       </a>
     </div>
   </div>
 
 <!--Feature-->
-<div id="feature-bg" class="container-fluid text-center py-5">
-  <h2 style="text-align: center;">One Stop Ammo Calculator</h2><br>
+<div id="feature-bg" class="container-fluid text-center content-section">
+  <h2 style="text-align: center;">One Stop Ammo Calculator</h2>
   <div class="countainer p-5 row row-cols-1 row-cols-md-3 g-3">
     <div class="col">
-      <div class="card shadow-sm card-style">
+      <div class="card h-100 shadow-sm card-style">
         <img src="img/icon/feature01.svg" class="card-img-left" height="60px" width="60px" alt="a logo represent planning board">
           <h3 class="card-title">Efficient Planning</h3>
           <p class="card-text">Just select and input number to train, and we'll calculate for youl</p>
       </div>
     </div>
     <div class="col">
-      <div class="card shadow-sm card-style">
+      <div class="card h-100 shadow-sm card-style">
         <img src="img/icon/feature02.svg" class="card-img-left" height="60px" width="60px" alt="a logo with bar chart diagram">
         <h3 class="card-title">One-click Reporting</h3>
         <p class="card-text">Click to download your result for instant report generation.</p>
       </div>
     </div>
     <div class="col">
-      <div class="card shadow-sm card-style">
+      <div class="card h-100 shadow-sm card-style">
         <img src="img/icon/feature03.svg" class="card-img-left" height="60px" width="60px" alt="a line connect three square from left to right and top to down where ends with an arrow pointing to the left">
         <h3 class="card-title">Event Managing</h3>
         <p class="card-text">Organize and manage from scheduling to resource allocations.</p>
@@ -90,33 +90,32 @@
   </div>
   <a href="registration.html">
     <button type="button" class="btn btn-bd-primary-dark lg-button-dark">
-      Sign Up
+      Launch Calculator
     </button>
   </a>  
 </div>
 
 <!--Contact Us-->
 <div id="contact-bg" class="container-fluid">
-  <div class="container py-5">
+  <div class="container content-section text-start">
     <div class="row align-items-center">
-      <div class="col">
+      <div class="col pe-5">
         <h2>Contact Us</h2>
         <p>If you have any questions or concerns, please don't hesitate to reach out. We're here to help.</p>
       </div>
-
       <div class="col">
         <form>
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <label for="inputName" class="form-label">Name</label>
+            <input type="name" class="form-control" id="inputName">
           </div>
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1">
+            <label for="inputEmail" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
           </div>
-          <div class="mb-3 form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          <div class="mb-3">
+            <label for="inputMessage" class="form-label">Message</label>
+            <input type="text" class="form-control" id="inputMessage">
           </div>
           <button type="submit" class="btn btn-bd-primary-light">Submit</button>
         </form>
@@ -125,8 +124,8 @@
 </div>
 </div>
 
-<footer id="footer" class="countainer-fluid">
-  © 2023 Copyright: Annumition Forcast Tool
+<footer class="footer text-center container-fluid p-3">
+  <p>© 2023 Copyright: Annumition Forcast Tool</p>
 </footer>
 
 </body>

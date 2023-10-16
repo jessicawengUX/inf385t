@@ -44,11 +44,15 @@ body {
   text-align: center;
 }
 
-/* .container-fluid {
-  padding-left: 0;
-  padding-right: 0;
-} */
+.content-hero {
+  padding: 10% 12%;
+}
 
+.content-section {
+  padding: 6% 12%;
+}
+
+/*Header - Navbar*/
 #brandfont {
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -62,15 +66,34 @@ body {
   background-color: var(--black);
 }
 
-.login-link {
-  margin-right: 10px; /* Adjust the right margin for the "Login" link */
-  padding: 5px 10px; /* Add padding to create space around the text */
-  border-radius: 5px; /* Add rounded corners to the border */
-  color:var(--black) !important; /* Change text color */
+#header-btn-bk{
+  margin-right: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color:var(--beige) !important; 
+  background-color: var(--black);
+  font-weight: normal !important;
+}
+
+#header-btn-yellow{
+  margin-right: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color:var(--black) !important; 
   background-color: var(--yellow);
   font-weight: normal !important;
-
 }
+
+.showHide { display:none; }
+
+/* Desktop*/
+@media screen and (min-width: 992px) {
+  .showHide  { display: block; }
+  #leftside > button { display: none; }
+}
+
+
+
 
 
 /* Hero Image */
@@ -100,7 +123,7 @@ body {
   --bs-btn-bg: var(--beige);
   --bs-btn-border-color: var(--bd-violet-bg);
   --bs-btn-hover-color: var(--green);
-  --bs-btn-hover-bg:#e8e1cc;
+  --bs-btn-hover-bg:#c1bcac;
   --bs-btn-hover-border-color: #{shade-color(var(--black), 10%)};
   --bs-btn-focus-shadow-rgb: var(--black);
   --bs-btn-focus-bg:var(--bs-btn-hover-bg);
@@ -116,12 +139,12 @@ body {
 
 .btn-bd-primary-dark {
   font-size: 1.25rem;
-  --bs-btn-font-weight: 700;
+  --bs-btn-font-weight: 700 !important;
   --bs-btn-color: var(--beige);
   --bs-btn-bg: var(--green);
   --bs-btn-border-color: var(--bd-violet-bg);
   --bs-btn-hover-color: var(--beige);
-  --bs-btn-hover-bg:#2c423b;
+  --bs-btn-hover-bg:#4b655c;
   --bs-btn-hover-border-color: #{shade-color(var(--black), 10%)};
   --bs-btn-focus-shadow-rgb: var(--black);
   --bs-btn-focus-bg:var(--bs-btn-hover-bg);
@@ -152,7 +175,7 @@ border-width: 3px;}
 }
 
 /* footer*/
-#footer{
+.footer{
   background-color: var(--black);
   color:var(--beige);
 }
