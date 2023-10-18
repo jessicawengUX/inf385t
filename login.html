@@ -4,74 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AMMUNITION FORCAST TOOL - Log In</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
 
-        .container {
-            text-align: center;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/login.css">
 
-        form {
-            text-align: left;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        button {
-            display: block;
-            margin: 0 auto;
-            padding: 10px 20px;
-            background-color: #FFD130;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        h1 {
-            font-size: 24px; /* Modify the font size for "AMMUNITION FORECAST TOOL" */
-        }
-
-        h2 {
-            font-size: 32px; /* Modify the font size for "Log In" */
-        }
-    </style>
 </head>
+
 <body>
+    <!-- Login page -->
     <div class="container">
-        <p>Ammunition Forecast Tool</p>
+        <h1>AMMUNITION FORECAST TOOL</h1>
         <h2>Log In</h2>
 
         <form action="login.php" method="POST">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            <input type="text" id="username" name="username" required>
 
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
-
+            <input type="password" id="password" name="password"  required>
+        
             <div class="forgot-password">
-                <a href="forgot_password.html">Forgot Password</a>
+                <a href="forgot_password.html">Forgot Password?</a>
             </div>
 
             <button type="submit">Log In</button>
