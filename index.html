@@ -31,9 +31,6 @@
   <nav id="navbar" class="navbar navbar-expand-lg navbar-dark --black">
     <div class="container-fluid">
         <a id="brandfont" class="navbar-brand ms-3" href="index.html">Ammunition Forecast Tool</a>
-        <!-- <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button> -->
         <div>
           <ul class="navbar-nav navi-pills me-3">
             <li class="nav-item showHide">
@@ -104,18 +101,18 @@
         <p>If you have any questions or concerns, please don't hesitate to reach out. We're here to help.</p>
       </div>
       <div class="col">
-        <form>
+        <form action="php/sendemail.php" method="post" name="AmmoContactEmailForm">
           <div class="mb-3">
-            <label for="inputName" class="form-label">Name</label>
-            <input type="name" class="form-control" id="inputName">
+            <label for="inputName" class="form-labe required">Name</label>
+            <input type="name" class="form-control" id="inputName" required>
           </div>
           <div class="mb-3">
-            <label for="inputEmail" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp">
+            <label for="inputEmail" class="form-label required">Email address</label>
+            <input type="email" class="form-control" id="inputEmail" required>
           </div>
           <div class="mb-3">
-            <label for="inputMessage" class="form-label">Message</label>
-            <input type="text" class="form-control" id="inputMessage">
+            <label for="inputMessage" class="form-label required">Message</label>
+            <input type="text" class="form-control" id="inputMessage" required>
           </div>
           <button type="submit" class="btn btn-bd-primary-light">Submit</button>
         </form>

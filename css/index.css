@@ -179,3 +179,5 @@ border-width: 3px;}
   background-color: var(--black);
   color:var(--beige);
 }
+
+.required:after { content:" *"; color:var(--beige);}
