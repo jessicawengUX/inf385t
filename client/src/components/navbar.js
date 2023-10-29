@@ -1,8 +1,9 @@
 import React from "react";
-import brandLogo from '../images/zara-logo.png';
+//import brandLogo from '../images/zara-logo.png';
  
 // We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
+import "./navbar.css";
 //import "bootstrap/dist/css/bootstrap.min.css";
  
 // We import NavLink to utilize the react router.
@@ -12,42 +13,41 @@ import { NavLink } from "react-router-dom";
 export default function Navbar() {
  return (
    <div>
-     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-       <NavLink className="navbar-brand" to="/">
-       <img style={{"width" : 25 + '%'}} src={brandLogo}></img>
-       </NavLink>
-       <button
-         className="navbar-toggler"
-         type="button"
-         data-toggle="collapse"
-         data-target="#navbarSupportedContent"
-         aria-controls="navbarSupportedContent"
-         aria-expanded="false"
-         aria-label="Toggle navigation"
-       >
-         <span className="navbar-toggler-icon"></span>
-       </button>
- 
-       <div className="collapse navbar-collapse" id="navbarSupportedContent">
-         <ul className="navbar-nav ml-auto">
-         <li className="nav-item">
-             <NavLink className="nav-link" to="/">
-               Home
-             </NavLink>
-           </li>
-           <li className="nav-item">
-             <NavLink className="nav-link" to="/register">
-               Register
-             </NavLink>
-           </li>
-           <li className="nav-item">
-             <NavLink className="nav-link" to="/login">
-               Login
-             </NavLink>
-           </li>
-         </ul>
-       </div>
-     </nav>
+    // Top Navbar  
+    <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand ms-3" href="index.html">Ammunition Forecast Tool</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link login-link" href="login.html">Login</a>
+                        </li>
+                    </ul>
+                </div>
+        </div>
+    </nav>
+
+    <div id="sidebar" class="bg-custom-medium">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" href="#"> Create Event </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"> My Events </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"> FAQs </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"> Contact Us</a>
+            </li>
+        </ul>
+    </div>
+
+
    </div>
  );
 }

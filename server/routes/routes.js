@@ -18,13 +18,13 @@ appRouter.route('/').get(function (req, res) {
   });
 
 // This section will help you get a list of all the records.
-appRouter.route("/products").get(async function (req, res) {
-    let db_connect = dbo.getDb("eCommerce");
-    const productList = await db_connect.collection("products").find().toArray();
+//appRouter.route("/products").get(async function (req, res) {
+//    let db_connect = dbo.getDb("eCommerce");
+//    const productList = await db_connect.collection("products").find().toArray();
     //console.log(productList);
-    res.json(productList);
+//    res.json(productList);
 
-});
+//});
   
 // This section will help you create a new user.
 appRouter.route("/register").post(function (req, response) {
