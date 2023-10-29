@@ -1,8 +1,6 @@
-//to run file, in a terminal type "node mongoDB_conn.js" in folder where file is located
-
-//import mongodb module
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const uri = "mongodb+srv://axj65:hookem@cluster0.hk0fply.mongodb.net/?retryWrites=true&w=majority"; //change uri to uri from mongoDB
+// Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -10,15 +8,16 @@ const client = new MongoClient(uri, {
     deprecationErrors: true,
   }
 });
-async function run() {
-    //connect to mongodb
-   client.connect();
+var dataBase;
 
-    // Send a ping to confirm a successful connection
+module.exports = {
+
+connectToServer: async function() {
+   client.connect();
+    
+   // Send a ping to confirm a successful connection
     client.db("admin").command({ ping: 1 });   
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
-
-    // if database does not exist, create a database 
     dataBase = client.db('ammoForecastTool');
 
 /*
@@ -73,13 +72,16 @@ async function run() {
     //delete user with email "email5"
     //dataBase.collection("users").deleteOne({ email: "email5" });
     // now show it is deleted
-    const users= await dataBase.collection("users").find().toArray();
+    //const users= await dataBase.collection("users").find().toArray();
     //show results
-    console.log(users);
+    //console.log(users);
 
 
-}
-run().catch(console.error);
+},
 
-
+getDb: function() {
+    return dataBase;
+  },
+};
+//run().catch(console.error);
 
