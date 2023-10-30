@@ -3,7 +3,7 @@ import React from "react";
  
 // We import bootstrap to make our application look better.
 import "bootstrap/dist/css/bootstrap.css";
-import "./navbar.css";
+import "./style.css";
 //import "bootstrap/dist/css/bootstrap.min.css";
  
 // We import NavLink to utilize the react router.

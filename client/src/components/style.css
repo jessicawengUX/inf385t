@@ -83,11 +83,10 @@ body {
   font-weight: bold;
 }
 
-
 /* Content Section */
 #content {
   margin-left: 250px; /* Adjust to match the sidebar width */
-  margin-top: 56px; /* Adjust to match the navbar height */
+  margin-top: 75px; /* Adjust to match the navbar height */
   padding: 20px;
 }
 
@@ -146,8 +145,6 @@ body {
   box-shadow: none; /* Remove the default focus box-shadow */
 }
 
-
-
 /* Form Section */
 .form-label1, .form-label2 {
   font-weight: bold; 
@@ -177,9 +174,6 @@ body {
   max-width: 800px;
   border: none; 
   padding: 10px;
-  margin-left: 340px;
+  margin-left: 140px;
   background-color: #edeade;
 }
-
-
-
