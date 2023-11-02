@@ -93,15 +93,16 @@ appRouter.post('/send-email', (req, res) => {
      service:'gmail',
      auth:{
       user:'jessica.ts.weng@gmail.com',
-      pass:'uenrocernzqhyveg '
+      pass:'uenrocernzqhyveg'
      } 
    });
+
 
    let mailOptions = {
      from: req.body.email,
      to: 'jessica.ts.weng@gmail.com',
      subject: `New Contact Message from ${req.body.name} | Ammo Forecast Tool`,
-     text: req.body.message
+     text: `Name: ${req.body.name}\n\nEmail: ${req.body.message}\n\nMessage: ${req.body.message}`
    };
 
    transporter.sendMail(mailOptions, (error, info) => {
