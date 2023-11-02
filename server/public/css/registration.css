@@ -1,0 +1,84 @@
+/* Color */
+:root {
+    --black: #101010;
+    --green: #2F362F;
+    --beige: #edeade;
+    --grey: #C7C7C7;
+    --yellow: #FFD130;
+    --lighterbg: #EDEADF;
+}
+
+/* Font */
+:root {
+    font-family: 'Inter', sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+    :root {
+        font-family: 'Inter var', sans-serif;
+    }
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+h1 {
+    font-size: 24px; /* Modify the font size for "AMMUNITION FORECAST TOOL" */
+}
+
+h2 {
+    font-size: 32px; /* Modify the font size for "Sign Up" */
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+    padding: 80px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: var(--lighterbg);
+}
+
+form {
+    text-align: left;
+    font-size: 20px;
+}
+
+.signup {
+    text-align: right;
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 13px;
+    margin-bottom: 20px;
+    border: 1px solid var(--black);
+    border-radius: 5px;
+}
+
+button {
+    display: block;
+    width: 100%;
+    padding: 8px 0;
+    background-color: var(--yellow);
+    color: black;
+    border: 1px solid var(--black);
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+}
