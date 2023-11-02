@@ -16,3 +16,15 @@ app.listen(port, () => {
     dbo.connectToServer();
     console.log(`Server is running on port: ${port}`);
 });
+
+
+
+//sending email from contact form
+const nodemailer=require('nodemailer');
+let transporter = nodemailer.createTransport({
+   service:'gmail',
+   auth:{
+    user:'jessica.ts.weng@gmail.com',
+    pass:'uenrocernzqhyveg'
+   } 
+});

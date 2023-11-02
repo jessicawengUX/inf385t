@@ -1,12 +1,15 @@
 const express = require("express");
 const path = require('path');
 const session = require('express-session');
+const nodemailer=require('nodemailer');
 
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const appRouter = express.Router();
 
 appRouter.use(session({
-   secret: "Your secret key"
+   secret: "Your secret key",
+   resave: false,
+   saveUninitialized: false
 }));
 
 //var session;
@@ -84,6 +87,31 @@ appRouter.route("/login").post(async function (req, response) {
 
 });
 
+//sending email from contact form
+appRouter.post('/send-email', (req, res) => {
+   let transporter = nodemailer.createTransport({
+     service:'gmail',
+     auth:{
+      user:'jessica.ts.weng@gmail.com',
+      pass:'uenrocernzqhyveg '
+     } 
+   });
 
+   let mailOptions = {
+     from: req.body.email,
+     to: 'jessica.ts.weng@gmail.com',
+     subject: `New Contact Message from ${req.body.name} | Ammo Forecast Tool`,
+     text: req.body.message
+   };
+
+   transporter.sendMail(mailOptions, (error, info) => {
+     if (error) {
+       res.status(500).send({ error: "Error occurred while trying to send email" });
+     } else {
+       res.send({ success: "Email sent successfully" });
+     }
+   });
+});
+  
 
 module.exports = appRouter;
