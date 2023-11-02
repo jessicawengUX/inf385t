@@ -11,18 +11,23 @@ appRouter.use(session({
 
 //var session;
 
-// const dbo = require("../database/conn");
+const dbo = require("../database/conn");
 
 // Serve static files from the "public" directory
-appRouter.use(express.static(path.join(__dirname, '..', 'public')));
 
 appRouter.route('/').get(function (req, res) {
   if (req.session.user) {
     res.redirect('/app');
   } else {
-    res.sendFile(path.join(__dirname, '..', 'public', 'index_home.html'));
+    res.sendFile(path.join(__dirname, '..', '..', 'client', 'public', 'index_home.html'));
   }
 });
+
+// Serve static files from the "public" directory
+// MAKE SURE THIS GOES UNDER THE '/' ROUTE
+appRouter.use(express.static(path.join(__dirname, '..', '..', 'client', 'public')));
+
+
 
 // This section will help you get a list of all the records.
 //appRouter.route("/products").get(async function (req, res) {
