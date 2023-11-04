@@ -101,18 +101,18 @@
         <p>If you have any questions or concerns, please don't hesitate to reach out. We're here to help.</p>
       </div>
       <div class="col">
-        <form>
+        <form id="contactForm">
           <div method="post" class="mb-3 form-group">
-            <label for="inputName" class="form-label required">Name</label>
-            <input type="text" class="form-control" id="inputName" placeholder="Your name" required>
+            <label for="name" class="form-label required">Name</label>
+            <input type="text" class="form-control" id="name" placeholder="Your name" required>
           </div>
           <div class="mb-3 form-group">
-            <label for="inputEmail" class="form-label required">Email address</label>
-            <input type="email" class="form-control" id="inputEmail" placeholder="Your email" required>
+            <label for="email" class="form-label required">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="Your email" required>
           </div>
           <div class="mb-3 form-group">
-            <label for="inputMessage" class="form-label required">Message</label>
-            <textarea class="form-control" id="inputMessage" rows="3" required></textarea>
+            <label for="message" class="form-label required">Message</label>
+            <textarea class="form-control" id="message" rows="3" required></textarea>
           </div>
           <button type="submit" class="btn btn-bd-primary-light">Submit</button>
         </form>
@@ -120,6 +120,34 @@
     </div>
 </div>
 </div>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(event) {
+   event.preventDefault();
+  
+   let name = document.getElementById('name').value;
+   let email = document.getElementById('email').value;
+   let message = document.getElementById('message').value;
+  
+   fetch('/send-email', {
+     method: 'POST',
+     headers: {
+       'Content-Type': 'application/json',
+     },
+     body: JSON.stringify({
+       name: name,
+       email: email,
+       message: message
+     }),
+   })
+   .then(response => response.json())
+   .then(data => console.log(data))
+   .catch((error) => {
+     console.error('Error:', error);
+   });
+  });
+  </script>
+  
 
 
 <footer class="footer text-center container-fluid p-3">
