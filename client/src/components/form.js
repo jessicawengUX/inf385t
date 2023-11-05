@@ -1,45 +1,84 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
+
+const weaponTypes = {
+  individual: ["M4", "M249", "M17"],
+  groundCrew: ["M240", "M2", "MK19"],
+  vehicleCrew: ["Abrams", "BFV", "Stryker"],
+  collective: ["Squad", "Platoon", "Company"]
+};
 
 function Form() {
   const [showDetails, setShowDetails] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState("");
+  const [selectedWeapon, setSelectedWeapon] = useState("");
+  const [numberToTrain, setNumberToTrain] = useState(0);
+  const [isFormValid, setIsFormValid] = useState(false);
 
-  const weaponTypes = {
-    individual: ["M4", "M249", "M17"],
-    groundCrew: ["M240", "M2", "MK19"],
-    vehicleCrew: ["M240", "M2", "MK19"],
-    collective: ["TypeA", "TypeB", "TypeC"]
-  };
-
+  useEffect(() => {
+    setIsFormValid(selectedEvent !== '' && selectedWeapon !== '' && numberToTrain > 0);
+  }, [selectedEvent, selectedWeapon, numberToTrain]);
+  
   const handleEventClick = (event) => {
     setSelectedEvent(event);
     setShowDetails(true);
+    setSelectedWeapon(weaponTypes[event][0]);
+    setNumberToTrain(0);
+  };
+
+  // Handler for weapon type dropdown
+  const handleWeaponChange = (event) => {
+    setSelectedWeapon(event.target.value);
+  };
+
+  // Handler for number to train textbox
+  const handleNumberChange = (event) => {
+    setNumberToTrain(event.target.value);
+  };
+
+  const nextButtonStyle = {
+    width: '100px', // Set the width you prefer for the bigger button
+    height: '30px', // Set the height you prefer for the bigger button
+    backgroundColor: isFormValid ? 'yellow' : 'grey',
+    opacity: isFormValid ? 1 : 0.5,
+    pointerEvents: isFormValid ? 'auto' : 'none', // Disables the button interaction when form is invalid
+    borderRadius: '0px',
+  };
+
+  // Optional: Handler for when you want to save the details
+  const handleSaveDetails = () => {
+    const trainingDetails = {
+      event: selectedEvent,
+      weapon: selectedWeapon,
+      number: numberToTrain
+    };
+    console.log("Saving training details:", trainingDetails);
+  };
+
+  // A function to get button classes
+  const getButtonClasses = (event) => {
+    return `btn btn-primary btn-lg rounded mb-3 ${selectedEvent === event ? 'btn-active' : ''}`;
   };
 
   return (
-    <div className="container text-center mt-5">
-
-      <br/>
-
-      <div className="progress-line">
-        <div className="checkpoint"></div>
-        <div className="checkpoint"></div>
-        <div className="checkpoint"></div>
-      </div>
-
-      <br/>
-      <br/>
+    <div className="container mt-5">
+      
+      {/* Progress line code  */}
 
       <div className="selection-container">
-        <div className="text-left mb-2">
-          <strong style={{ fontSize: "20px", marginRight: "460px" }}>Select Event Type:</strong>
-        </div>
-        <div className="btn-group text-center">
-          <button onClick={() => handleEventClick("individual")} className="btn btn-primary btn-lg rounded mb-3">Individual</button>
-          <button onClick={() => handleEventClick("groundCrew")} className="btn btn-primary btn-lg rounded mb-3">Ground Crew</button>
-          <button onClick={() => handleEventClick("vehicleCrew")} className="btn btn-primary btn-lg rounded mb-3">Vehicle Crew</button>
-          <button onClick={() => handleEventClick("collective")} className="btn btn-primary btn-lg rounded mb-3">Collective</button>
+        <strong style={{ fontSize: "20px" }}>Select Event Type:</strong>
+        <br/>
+        <br/>
+        <div className="btn-group">
+          {Object.keys(weaponTypes).map((event) => (
+            <button
+              key={event}
+              onClick={() => handleEventClick(event)}
+              className={getButtonClasses(event)}
+            >
+              {event.charAt(0).toUpperCase() + event.slice(1)}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -47,13 +86,13 @@ function Form() {
 
       {showDetails && (
         <>
-          <p className="mb-2"><strong style={{ fontSize: "20px", marginRight: "485px" }}>Training Details:</strong></p>
+          <p className="mb-2 mx-auto"><strong style={{ fontSize: "20px" }}>Training Details:</strong></p>
           <div className="container mt-1 container-section">
             <div className="row">
               <div className="col-md-8 form-container">
                 <div className="mb-4">
                   <label htmlFor="dropdown" className="form-label1">Weapon Type</label>
-                  <select className="form-select" id="dropdown">
+                  <select className="form-select" id="dropdown" value={selectedWeapon} onChange={handleWeaponChange}>
                     {weaponTypes[selectedEvent].map((type) => (
                       <option key={type} value={type}>{type}</option>
                     ))}
@@ -61,13 +100,33 @@ function Form() {
                 </div>
               </div>
               <div className="col-md-4 form-container">
-                <div className="mb-4">
+                <div className="mb-4 mx-auto">
                   <label htmlFor="textBox" className="form-label2">Number to Train</label>
-                  <input type="text" className="form-control" id="textBox" placeholder="Enter text" style={{ width: "100%", padding: "5px" }} />
+                  <input 
+                  type="number" 
+                  className="form-control" 
+                  id="textBox"
+                  value={numberToTrain} 
+                  onChange={handleNumberChange}
+                  placeholder="Enter number" 
+                  style={{ width: "100%", padding: "5px" }} 
+                  />
                 </div>
               </div>
             </div>
           </div>
+
+          <br/>
+          <br/>
+
+          <button
+            onClick={handleSaveDetails}
+            className="btn btn-lg float-end"
+            style={nextButtonStyle}
+            disabled={!isFormValid} // This property will make the button not clickable when the form is invalid
+          >
+            NEXT
+          </button>
         </>
       )}
     </div>
@@ -75,3 +134,4 @@ function Form() {
 }
 
 export default Form;
+
