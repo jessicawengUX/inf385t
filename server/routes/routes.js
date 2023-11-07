@@ -58,11 +58,11 @@ appRouter.post('/api/query', async (req, res) => {
    }
  });
  
-//appRouter.use('/app', express.static(path.join(__dirname, '..', '..', 'client', 'build')));
+appRouter.use('/app', express.static(path.join(__dirname, '..', '..', 'client', 'build')));
 
-//appRouter.get('/app/*', function (req, res) {
-//    res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
-//});
+appRouter.get('/app/*', function (req, res) {
+    res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
+});
 
 // This section will help you get a list of all the records.
 appRouter.route("/table").get(async function (req, res) {
