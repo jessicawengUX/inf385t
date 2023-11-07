@@ -30,7 +30,11 @@ appRouter.route('/').get(function (req, res) {
 // MAKE SURE THIS GOES UNDER THE '/' ROUTE
 appRouter.use(express.static(path.join(__dirname, '..', '..', 'client', 'public')));
 
+appRouter.use('/app', express.static(path.join(__dirname, '..', '..', 'client', 'build')));
 
+appRouter.get('/app/*', function (req, res) {
+    res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
+});
 
 // This section will help you get a list of all the records.
 //appRouter.route("/products").get(async function (req, res) {
