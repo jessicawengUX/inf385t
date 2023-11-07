@@ -47,7 +47,11 @@ appRouter.post('/api/query', async (req, res) => {
      // Handle errors that may occur during the search
      res.status(500).json({ message: "Error retrieving training records", error: error.message });
    }
- });
+ });appRouter.use('/app', express.static(path.join(__dirname, '..', '..', 'client', 'build')));
+
+appRouter.get('/app/*', function (req, res) {
+    res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
+});
 
 // This section will help you get a list of all the records.
 appRouter.route("/table").get(async function (req, res) {
