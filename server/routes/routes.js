@@ -12,19 +12,15 @@ appRouter.use(session({secret: "Your secret key", resave: false, saveUninitializ
 
 const dbo = require("../database/conn");
 
-// Serve static files from the "public" directory
+//Serve static files from the "public" directory
 
-//appRouter.route('/').get(function (req, res) {
-//  if (req.session.user) {
-//    res.redirect('/app');
-//  } else {
-//    res.sendFile(path.join(__dirname, '..', '..', 'client', 'public', 'index_home.html'));
-//  }
-//});
+appRouter.route('/').get(function (req, res) {
+   res.sendFile(path.join(__dirname, '..', '..', 'client', 'public', 'index_home.html'));
+});
 
 // Serve static files from the "public" directory
 // MAKE SURE THIS GOES UNDER THE '/' ROUTE
-//appRouter.use(express.static(path.join(__dirname, '..', '..', 'client', 'public')));
+appRouter.use(express.static(path.join(__dirname, '..', '..', 'client', 'public')));
 
 //try
 // POST route to handle search query from Form.js
