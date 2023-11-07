@@ -6,6 +6,8 @@ const nodemailer=require('nodemailer');
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const appRouter = express.Router();
 
+appRouter.use(express.json());
+
 appRouter.use(session({secret: "Your secret key", resave: false, saveUninitialized: false}));
 
 //var session;
@@ -14,21 +16,23 @@ const dbo = require("../database/conn");
 
 // Serve static files from the "public" directory
 
-//appRouter.route('/').get(function (req, res) {
-//  if (req.session.user) {
-//    res.redirect('/app');
-//  } else {
-//    res.sendFile(path.join(__dirname, '..', '..', 'client', 'public', 'index_home.html'));
-//  }
-//});
+appRouter.route('/').get(function (req, res) {
+  if (req.session.user) {
+    res.redirect('/app');
+  } else {
+    res.sendFile(path.join(__dirname, '..', '..', 'client', 'public', 'index_home.html'));
+  }
+});
 
 // Serve static files from the "public" directory
 // MAKE SURE THIS GOES UNDER THE '/' ROUTE
-//appRouter.use(express.static(path.join(__dirname, '..', '..', 'client', 'public')));
+appRouter.use(express.static(path.join(__dirname, '..', '..', 'client', 'public')));
+
 
 //try
 // POST route to handle search query from Form.js
 appRouter.post('/api/query', async (req, res) => {
+   console.log("Received request on /api/query");
    let db_connect = dbo.getDb();
    const { event, weapon, number } = req.body;
  
@@ -37,21 +41,28 @@ appRouter.post('/api/query', async (req, res) => {
    if (event) query.event = event;
    if (weapon) query.weapon = weapon;
    if (number) query.numberToTrain = parseInt(number);
+
+   console.log('Constructed query:', query); // Log the constructed query
  
    try {
      // Perform the search in the appropriate collection
      const results = await db_connect.collection("individualQualifications").find(query).toArray();
+     console.log('Query results:', results); // Log the results
+
      // If the results are needed on the client side, send them back
      res.status(200).json(results);
    } catch (error) {
      // Handle errors that may occur during the search
+     console.error('Error during database query:', error); // Log any errors
      res.status(500).json({ message: "Error retrieving training records", error: error.message });
    }
- });appRouter.use('/app', express.static(path.join(__dirname, '..', '..', 'client', 'build')));
+ });
+ 
+//appRouter.use('/app', express.static(path.join(__dirname, '..', '..', 'client', 'build')));
 
-appRouter.get('/app/*', function (req, res) {
-    res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
-});
+//appRouter.get('/app/*', function (req, res) {
+//    res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
+//});
 
 // This section will help you get a list of all the records.
 appRouter.route("/table").get(async function (req, res) {

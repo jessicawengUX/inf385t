@@ -13,6 +13,7 @@ import Table from "./components/table";
      <Navbar />
      <Routes>
         <Route exact path="/" element={<Form/>} />
+        <Route exact path="/app" element={<Form/>} />
         <Route path="/table" element={<Table />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />

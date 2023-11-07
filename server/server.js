@@ -8,6 +8,7 @@ const port = process.env.PORT || 5050;
 app.use(cors({}));
 app.use(express.json());
 app.use(require("./routes/routes")); 
+
 // get driver connection
 const dbo = require("./database/conn");
 
@@ -21,6 +22,7 @@ app.listen(port, () => {
 
 //sending email from contact form
 const nodemailer=require('nodemailer');
+const appRouter = require("./routes/routes");
 let transporter = nodemailer.createTransport({
    service:'gmail',
    auth:{
