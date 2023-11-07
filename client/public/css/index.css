@@ -28,8 +28,7 @@ h3 {font-size: 1.75rem;
   color:var(--black)}
 
 h4 {font-size: 1.25rem; 
-  font-weight: 300; 
-  color:var(--beige)}
+  font-weight: 600; }
 
 body {
   display: flex;
@@ -153,6 +152,23 @@ body {
   --bs-btn-active-border-color: #{shade-color(var(--black), 20%)};
 }
 
+.btn-bd-primary-dark-small {
+  font-size: 1rem;
+  --bs-btn-font-weight: 500 !important;
+  --bs-btn-color: var(--beige);
+  --bs-btn-bg: var(--green);
+  --bs-btn-border-color: var(--bd-violet-bg);
+  --bs-btn-hover-color: var(--beige);
+  --bs-btn-hover-bg:#4b655c;
+  --bs-btn-hover-border-color: #{shade-color(var(--black), 10%)};
+  --bs-btn-focus-shadow-rgb: var(--black);
+  --bs-btn-focus-bg:var(--bs-btn-hover-bg);
+  --bs-btn-active-color: var(--bs-btn-hover-color);
+  --bs-btn-active-bg: var(--bs-btn-hover-bg);
+  --bs-btn-active-border-color: #{shade-color(var(--black), 20%)};
+}
+
+
 
 /* feature-card*/
 #feature-bg{
@@ -172,6 +188,14 @@ border-width: 3px;}
 #contact-bg{
   background-color: var(--green);
   color:var(--beige);
+}
+
+.success-msg{
+  display: none;
+  border-radius: 0.75rem;
+  padding: 1.87rem 1.25rem;
+  background-color: var(--beige);
+  color:var(--black)
 }
 
 /* footer*/
