@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 
 const weaponTypes = {
@@ -9,6 +10,8 @@ const weaponTypes = {
 };
 
 function Form() {
+  const navigate = useNavigate();
+
   const [showDetails, setShowDetails] = useState(false);
   const [selectedEvent, setSelectedEvent] = useState("");
   const [selectedWeapon, setSelectedWeapon] = useState("");
@@ -46,14 +49,36 @@ function Form() {
   };
 
   // Optional: Handler for when you want to save the details
-  const handleSaveDetails = () => {
-    const trainingDetails = {
-      event: selectedEvent,
-      weapon: selectedWeapon,
-      number: numberToTrain
-    };
-    console.log("Saving training details:", trainingDetails);
+  const handleSaveDetails = async () => {
+    console.log('Save details handler called');
+    try {
+      const trainingDetails = {
+        event: selectedEvent,
+        weapon: selectedWeapon,
+        number: numberToTrain
+      };
+  
+      const response = await fetch('/api/query', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(trainingDetails),
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      navigate('/table', { state: trainingDetails });
+      //navigate('/table');
+
+    } catch (error) {
+      console.error("Failed to save details and navigate:", error);
+    }
   };
+  
 
   // A function to get button classes
   const getButtonClasses = (event) => {

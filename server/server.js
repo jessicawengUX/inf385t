@@ -5,7 +5,7 @@ const cors = require("cors");
 require("dotenv").config({ path: "./config.env" });
 
 const port = process.env.PORT || 5050;
-app.use(cors());
+app.use(cors({}));
 app.use(express.json());
 app.use(require("./routes/routes")); 
 // get driver connection
@@ -28,3 +28,4 @@ let transporter = nodemailer.createTransport({
     pass:'uenrocernzqhyveg'
    } 
 });
+

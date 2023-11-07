@@ -6,11 +6,7 @@ const nodemailer=require('nodemailer');
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const appRouter = express.Router();
 
-appRouter.use(session({
-   secret: "Your secret key",
-   resave: false,
-   saveUninitialized: false
-}));
+appRouter.use(session({secret: "Your secret key", resave: false, saveUninitialized: false}));
 
 //var session;
 
@@ -18,28 +14,63 @@ const dbo = require("../database/conn");
 
 // Serve static files from the "public" directory
 
-appRouter.route('/').get(function (req, res) {
-  if (req.session.user) {
-    res.redirect('/app');
-  } else {
-    res.sendFile(path.join(__dirname, '..', '..', 'client', 'public', 'index_home.html'));
-  }
-});
+//appRouter.route('/').get(function (req, res) {
+//  if (req.session.user) {
+//    res.redirect('/app');
+//  } else {
+//    res.sendFile(path.join(__dirname, '..', '..', 'client', 'public', 'index_home.html'));
+//  }
+//});
 
 // Serve static files from the "public" directory
 // MAKE SURE THIS GOES UNDER THE '/' ROUTE
-appRouter.use(express.static(path.join(__dirname, '..', '..', 'client', 'public')));
+//appRouter.use(express.static(path.join(__dirname, '..', '..', 'client', 'public')));
 
-
+//try
+// POST route to handle search query from Form.js
+appRouter.post('/api/query', async (req, res) => {
+   let db_connect = dbo.getDb();
+   const { event, weapon, number } = req.body;
+ 
+   // Construct a query object based on the supplied form data
+   let query = {};
+   if (event) query.event = event;
+   if (weapon) query.weapon = weapon;
+   if (number) query.numberToTrain = parseInt(number);
+ 
+   try {
+     // Perform the search in the appropriate collection
+     const results = await db_connect.collection("individualQualifications").find(query).toArray();
+     // If the results are needed on the client side, send them back
+     res.status(200).json(results);
+   } catch (error) {
+     // Handle errors that may occur during the search
+     res.status(500).json({ message: "Error retrieving training records", error: error.message });
+   }
+ });
 
 // This section will help you get a list of all the records.
-//appRouter.route("/products").get(async function (req, res) {
-//    let db_connect = dbo.getDb("eCommerce");
-//    const productList = await db_connect.collection("products").find().toArray();
-//console.log(productList);
-//    res.json(productList);
-
-//});
+appRouter.route("/table").get(async function (req, res) {
+   let db_connect = dbo.getDb("ammoForecastTool");
+   let query = {
+     eventType: req.query.eventType,
+     ammoType: req.query.ammoType,
+     // ... you can add other query parameters here
+   };
+   
+   // Clean the query object to remove undefined or empty keys
+   Object.keys(query).forEach(key => {
+     if (query[key] === undefined || query[key] === '') {
+       delete query[key];
+     }
+   });
+ 
+   const results = await db_connect.collection("individualQualifications")
+     .find(query)
+     .toArray();
+   
+   res.json(results);
+ });
 
 // Route for user to register.
 
