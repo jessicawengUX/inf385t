@@ -14,7 +14,7 @@ appRouter.use(session({secret: "Your secret key", resave: false, saveUninitializ
 
 const dbo = require("../database/conn");
 
-// Serve static files from the "public" directory
+//Serve static files from the "public" directory
 
 appRouter.route('/').get(function (req, res) {
   if (req.session.user) {
