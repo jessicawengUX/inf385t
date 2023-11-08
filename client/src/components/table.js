@@ -7,21 +7,24 @@ function Table() {
   const location = useLocation();
 
   useEffect(() => {
-    // Extract state from location if available
-    const query = location.state ? location.state : {};
-    
-    // Construct the search params string from query object
+    const query = location.state || {};
+  
+    if (query.weapon) {
+      // If the user selected "M4", you want to filter for M4 events
+      query.eventType = query.weapon + '.*'; // This will create a regex pattern to match all events starting with "M4"
+    }
+  
     const searchParams = new URLSearchParams(query).toString();
-
-    // Fetch the data from the server
+  
     const fetchData = async () => {
       const response = await fetch(`/table?${searchParams}`);
       const result = await response.json();
       setData(result);
     };
-
+  
     fetchData();
   }, [location]);
+  
 
   return (
     <div className="container mt-5">
