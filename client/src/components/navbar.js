@@ -42,7 +42,7 @@ export default function Navbar() {
                 <a class="nav-link" href="#"> FAQs </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="/../index_home.html"> Contact Us</a>
+                <a class="nav-link" href="/../index_home.html#contact-bg"> Contact Us</a>
             </li>
         </ul>
     </div>
