@@ -17,28 +17,40 @@ export default function Login() {
    });
  }
  
- // This function will handle the submission.
- async function onSubmit(e) {
-   e.preventDefault();
- 
-   // When a post request is sent to the create url, we'll add a new record to the database.
-   const loginCredentials = { ...form };
- 
-   await fetch("http://localhost:5050/login", {
-     method: "POST",
-     headers: {
-       "Content-Type": "application/json",
-     },
-     body: JSON.stringify(loginCredentials),
-   })
-   .catch(error => {
-     window.alert(error);
-     return;
-   });
- 
-   setForm({ email: "", password: "" });
-   navigate("/");
- }
+
+// This function will handle the submission.
+async function onSubmit(e) {
+  e.preventDefault();
+
+  // When a post request is sent to the create url, we'll add a new record to the database.
+  const loginCredentials = { ...form };
+
+  try {
+    const response = await fetch("http://localhost:5050/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(loginCredentials),
+    });
+
+    const data = await response.text(); // Assuming server sends back a plain text message
+
+    if (response.ok) {
+      // If the login was successful, redirect to the homepage or dashboard
+      navigate("/");
+    } else {
+      // If the login was unsuccessful, alert the user
+      window.alert(data); // Data contains the response message from the server
+    }
+  } catch (error) {
+    window.alert("There was a problem with the login request: " + error.message);
+  }
+
+  // Reset the form
+  setForm({ email: "", password: "" });
+}
+
  
  // This following section will display the form that takes the input from the user.
  return (

@@ -23,7 +23,7 @@ export default function Navbar() {
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item active">
-                            <a class="nav-link login-link" href="login.html">Login</a>
+                            <a class="nav-link login-link" href="/login">Login</a>
                         </li>
                     </ul>
                 </div>

@@ -17,11 +17,7 @@ const dbo = require("../database/conn");
 //Serve static files from the "public" directory
 
 appRouter.route('/').get(function (req, res) {
-  if (req.session.user) {
-    res.redirect('/app');
-  } else {
     res.sendFile(path.join(__dirname, '..', '..', 'client', 'public', 'index_home.html'));
-  }
 });
 
 // Serve static files from the "public" directory
@@ -117,31 +113,37 @@ appRouter.route("/register").post(function (req, response) {
 });
 
 // Route for user to login.
+appRouter.get("/login", function (req, res) {
+  res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
+});
+
 appRouter.route("/login").post(async function (req, response) {
-   let db_connect = dbo.getDb();
-   let loginCredentials = {
+  try {
+    let db_connect = dbo.getDb();
+    let loginCredentials = {
       email: req.body.email,
       password: req.body.password,
-   };
-   console.log(loginCredentials);
+    };
 
-   var email = {
-      email: loginCredentials.email
-   };
-   const results = await db_connect.collection("customers").find(email, {
-      _id: 0,
-      "password": 1
-   }).toArray();
-   const db_password = results[0].password;
-   console.log(db_password);
-   if (db_password == loginCredentials.password) {
-      req.session.user = loginCredentials.email;
-      response.send("logged in!");
-   } else {
-      response.send("email or/and password is incorrect!");
-   }
+    const user = await db_connect.collection("customers").findOne({ email: loginCredentials.email });
 
+    if (user) {
+      if (user.password === loginCredentials.password) {
+        req.session.user = loginCredentials.email;
+        response.send("logged in!");
+      } else {
+        response.status(401).send("email or/and password is incorrect!"); // Unauthorized
+      }
+    } else {
+      response.status(401).send("email or/and password is incorrect!"); // Unauthorized
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    response.status(500).send("Internal server error occurred while trying to log in."); // Internal Server Error
+  }
 });
+
+
 
 //sending email from contact form
 appRouter.post('/send-email', (req, res) => {
