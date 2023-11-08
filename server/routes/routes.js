@@ -94,6 +94,9 @@ appRouter.route("/table").get(async function (req, res) {
 
 
 // Route for user to register.
+appRouter.get("/register", function (req, res) {
+  res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
+});
 
 appRouter.route("/register").post(function (req, response) {
    let db_connect = dbo.getDb();
@@ -116,7 +119,7 @@ appRouter.route("/register").post(function (req, response) {
 appRouter.get("/login", function (req, res) {
   res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
 });
-
+// Post for login function
 appRouter.route("/login").post(async function (req, response) {
   try {
     let db_connect = dbo.getDb();
