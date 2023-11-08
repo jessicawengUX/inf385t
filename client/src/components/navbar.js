@@ -16,7 +16,7 @@ export default function Navbar() {
     // Top Navbar  
     <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand ms-3" href="index.html">Ammunition Forecast Tool</a>
+            <a class="navbar-brand ms-3" href="/../index_home.html">Ammunition Forecast Tool</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -33,7 +33,7 @@ export default function Navbar() {
     <div id="sidebar" class="bg-custom-medium">
         <ul class="nav flex-column">
             <li class="nav-item">
-                <a class="nav-link active" href="#"> Create Event </a>
+                <a class="nav-link active" href="/app"> Create Event </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#"> My Events </a>
@@ -42,7 +42,7 @@ export default function Navbar() {
                 <a class="nav-link" href="#"> FAQs </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"> Contact Us</a>
+                <a class="nav-link" href="/../index_home.html"> Contact Us</a>
             </li>
         </ul>
     </div>
