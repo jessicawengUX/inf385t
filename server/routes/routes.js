@@ -134,15 +134,14 @@ appRouter.route("/login").post(async function (req, response) {
       } else {
         response.status(401).send("email or/and password is incorrect!"); // Unauthorized
       }
-    } else {
-      response.status(401).send("email or/and password is incorrect!"); // Unauthorized
+    }   else {
+        response.status(401).send("email or/and password is incorrect!"); // Unauthorized
     }
   } catch (error) {
     console.error('Login error:', error);
     response.status(500).send("Internal server error occurred while trying to log in."); // Internal Server Error
   }
 });
-
 
 
 //sending email from contact form
