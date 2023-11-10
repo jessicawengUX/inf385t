@@ -51,6 +51,7 @@ body {
   padding: 6% 12%;
 }
 
+
 /*Header - Navbar*/
 #brandfont {
   font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -60,7 +61,7 @@ body {
   position: sticky;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100%;;
   z-index: 1000;
   background-color: var(--black);
 }
@@ -71,7 +72,7 @@ body {
   border-radius: 5px;
   color:var(--beige) !important; 
   background-color: var(--black);
-  font-weight: normal !important;
+  font-weight: 600 !important;
 }
 
 #header-btn-yellow{
@@ -80,7 +81,7 @@ body {
   border-radius: 5px;
   color:var(--black) !important; 
   background-color: var(--yellow);
-  font-weight: normal !important;
+  font-weight: 600 !important;
 }
 
 .showHide { display:none; }
