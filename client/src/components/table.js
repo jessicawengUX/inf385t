@@ -46,23 +46,26 @@ function Table() {
 
   const groupedData = groupByEventType(data);
 
-
   return (
     <div className="container mt-5">
+      <br/>
+      <br/>
       <h2>Training Qualification Details</h2>
-      <p><strong>Event Type:</strong> {location.state.event}</p>
+      <br/>
+      {location.state.event && <p><strong>Event Type:</strong> {location.state.event}</p>}
       {location.state.weapon && <p><strong>Weapon Type:</strong> {location.state.weapon}</p>}
       {location.state.number && <p><strong>Number to Train:</strong> {location.state.number}</p>}
+      <br/>
 
       {Object.keys(groupedData).map((eventType, index) => {
-  const eventDataSet = groupedData[eventType];
+      const eventDataSet = groupedData[eventType];
 
-  if (eventDataSet.length === 0 || !eventDataSet[0].data) {
-    return null; // or some error component
-  }
+      if (eventDataSet.length === 0 || !eventDataSet[0].data) {
+        return null; // or some error component
+      }
 
-  // Headers should exclude 'ammoType' since it's handled separately
-  const headers = Object.keys(eventDataSet[0].data).filter(header => header !== 'ammoType' && header !== 'Total');
+      // Headers should exclude 'ammoType' since it's handled separately
+      const headers = Object.keys(eventDataSet[0].data).filter(header => header !== 'ammoType' && header !== 'Total');
 
   return (
     <div key={index}>
@@ -70,12 +73,12 @@ function Table() {
       <table className="table">
         <thead>
           <tr>
-            <th>Quantity</th>
+            <th></th>
             <th>Ammo Type</th>
             {headers.map(header => (
               <th key={header}>{header}</th>
             ))}
-            <th>Total</th> {/* Single Total column header */}
+            <th>Total</th> 
           </tr>
         </thead>
         <tbody>
@@ -101,6 +104,7 @@ function Table() {
           ))}
         </tbody>
       </table>
+      <br/>
     </div>
         );
       })}

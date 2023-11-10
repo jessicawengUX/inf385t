@@ -68,7 +68,7 @@ export default function Sidebar() {
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="/../index_home.html#contact-bg">
             <BiSend size={24} style={{marginRight:'1.25rem'}} />
             <span>Contact Us</span>
           </a>
