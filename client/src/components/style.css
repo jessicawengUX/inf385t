@@ -31,13 +31,12 @@ body {
   margin: 0; /* Remove default body margin */
 }
 
-.container {
-  text-align: left;
+#brandfont {
+  font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.container-fluid {
-  padding-left: 0;
-  padding-right: 0;
+.container {
+  text-align: left;
 }
 
 #navbar {
@@ -46,42 +45,69 @@ body {
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #101010;
+  background-color: var(--black);
 }
 
-.login-link {
-  margin-right: 10px; /* Adjust the right margin for the "Login" link */
-  padding: 5px 10px; /* Add padding to create space around the text */
-  border-radius: 5px; /* Add rounded corners to the border */
-  color: black !important; /* Change text color */
-  background-color: yellow;
-  font-weight: normal !important;
-
+#header-btn-yellow{
+  margin-right: 10px;
+  padding: 5px 10px;
+  border-radius: 5px;
+  color:var(--black) !important; 
+  background-color: var(--yellow);
+  font-weight: 600 !important;
 }
 
 /* Sidebar Section */
-#sidebar {
+.sidebar {
   position: fixed;
-  top: 56px; /* Adjust the top offset to match the navbar height */
   left: 0;
+  top:56px;
   height: 100%;
-  width: 250px; /* Adjust the width as needed */
-  z-index: 1;
-  padding-top: 20px;
-  padding-right: 10px;
-  background-color: #2F362F;
+  width: 13.5rem;
+  padding-top: 2.5rem;
+  padding-left: 1.25rem;
+  background-color: var(--green);
+  white-space: nowrap;
+  overflow-x: hidden;
+  transition: 0.5s;
 }
 
-.nav-link.active {
-  color: black;        /* Text color for the active link */
-  background-color: whitesmoke; /* Background color for the active link */
-  font-weight: bold;
+/*need to expend the main content  
+#main {
+transition: margin-left .5s;
+padding: 16px;
+margin-left: 85px;
+}*/
+
+.sidebar a{
+  border-radius: 0.5rem 0rem 0rem 0.5rem;
+  padding: 0.75rem 6rem 0.75rem 0.75rem;
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: normal;
+  color: var(--beige);
+  display:flex;
 }
 
-.nav-link {
-  color: whitesmoke; /* Change this color for the non-active links */
-  font-weight: bold;
+.sidebar a:hover{
+  color: var(--green);
+  background-color: #c1bcac;
 }
+
+
+.active-link a{
+  border-radius: 0.5rem 0rem 0rem 0.5rem;
+  padding: 0.75rem 6rem 0.75rem 0.75rem;
+  text-decoration: none;
+  font-size: 1.25rem;
+  font-weight: 600;
+  line-height: normal;
+  display:flex;
+  color: var(--beige);        /* Text color for the active link */
+  background-color: var(--beige); /* Background color for the active link */
+}
+
 
 
 /* Progress Line */
@@ -90,11 +116,11 @@ body {
   height: 1px;
   position: relative;
   display: flex;
-  background-color: #ccc;
+  background-color: var(--beige);
   justify-content: space-between;
   align-items: center;
   padding: 1px;
-  background-color: black;
+  background-color: var(--black);
 }
 
 .checkpoint {
@@ -102,8 +128,8 @@ body {
   height: 20px;
   background-color: #007bff;
   border-radius: 50%;
-  border: 2px solid black;
-  background-color: yellow;
+  border: 2px solid var(--black);
+  background-color: var(--yellow);
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -121,26 +147,26 @@ body {
   text-align: center;
   line-height: 0px;
   color: black;        /* Text color for the active link */
-  background-color: #EDEADF; /* Background color for the active link */
-  border: 2px solid black; /* Change the outline color to red */
+  background-color: var(--beige); /* Background color for the active link */
+  border: 2px solid var(--black); /* Change the outline color to red */
   font-size: 16px;
 }
 
 .btn:hover {
-  background-color: yellow;
-  border: 2px solid black;
+  background-color: var(--yellow);
+  border: 2px solid var(--black);
   color: black;
 }
 
 .btn:focus, .btn:active {
-  background-color: yellow;
-  border: 2px solid black;
+  background-color: var(--yellow);
+  border: 2px solid --black;
   outline: none; /* Remove the default focus outline */
   box-shadow: none; /* Remove the default focus box-shadow */
 }
 
 .btn-active {
-  background-color: yellow; /* This style will be applied to the active button */
+  background-color: var(--yellow); /* This style will be applied to the active button */
 }
 
 /* Form Section */
