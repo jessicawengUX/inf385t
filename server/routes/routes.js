@@ -93,27 +93,58 @@ appRouter.route("/table").get(async function (req, res) {
 });
 
 
-// Route for user to register.
+
+
+
+
+// Route for user registration.
 appRouter.get("/register", function (req, res) {
   res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
 });
 
-appRouter.route("/register").post(function (req, response) {
-   let db_connect = dbo.getDb();
-   let newUser = {
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
+// Post for user registration function
+appRouter.route("/register").post(async function (req, response) {
+  try {
+    // Validation for required fields
+    const requiredFields = ['email', 'password', 'firstName', 'lastName', 'confirmPassword'];
+    for (const field of requiredFields) {
+      if (!req.body[field]) {
+        return response.status(400).send(`Missing or empty ${field} field!`);
+      }
+    }
+
+    let db_connect = dbo.getDb();
+    let registrationDetails = {
       email: req.body.email,
       password: req.body.password,
-      gender: req.body.gender,
-      address: req.body.address,
-   };
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      confirmPassword: req.body.confirmPassword,
+    };
 
-   db_connect.collection("customers").insertOne(newUser, function (err, res) {
-      if (err) throw err;
-      response.json(res);
-   });
+    // Check if the email is already registered
+    const existingUser = await db_connect.collection("customers").findOne({ email: registrationDetails.email });
+
+    if (existingUser) {
+      response.status(409).send("Email is already registered!"); // Conflict
+    } else {
+      // Check if passwords match
+      if (registrationDetails.password !== registrationDetails.confirmPassword) {
+        response.status(400).send("Passwords do not match!"); // Bad Request
+      } else {
+        // If the email is not registered and passwords match, proceed with registration
+        delete registrationDetails.confirmPassword; // Remove confirmPassword from stored data
+        await db_connect.collection("customers").insertOne(registrationDetails);
+        response.send("Registration successful!");
+      }
+    }
+  } catch (error) {
+    console.error('Registration error:', error);
+    response.status(500).send("Internal server error occurred while trying to register."); // Internal Server Error
+  }
 });
+
+
 
 // Route for user to login.
 appRouter.get("/login", function (req, res) {
@@ -176,3 +207,8 @@ appRouter.post('/send-email', (req, res) => {
   
 
 module.exports = appRouter;
+
+
+
+
+
