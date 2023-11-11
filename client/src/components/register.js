@@ -67,6 +67,7 @@ export default function Register() {
  // This following section will display the form that takes the input from the user.
  return (
   <div className="container text-left" style={{ marginTop: "130px" }}>
+    <br/>
      <h1>Register</h1>
      <form onSubmit={onSubmit}>
         <div className="form-group">

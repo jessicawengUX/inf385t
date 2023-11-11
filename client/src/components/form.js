@@ -86,10 +86,7 @@ function Form() {
   };
 
   return (
-    <div className="container mt-5">
-      
-      
-
+    <div className="form-container mt-5">
       <div className="selection-container">
         <br/>
         <strong style={{ fontSize: "20px" }}>Select Event Type:</strong>

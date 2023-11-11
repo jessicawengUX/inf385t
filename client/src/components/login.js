@@ -56,6 +56,11 @@ async function onSubmit(e) {
  // This following section will display the form that takes the input from the user.
  return (
    <div className="container text-left">
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
      <h1>Login</h1>
      <form onSubmit={onSubmit}>
        <div className="form-group">

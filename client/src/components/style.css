@@ -219,21 +219,7 @@ margin-left: 85px;
 
 
 
-
-
-
-
-
-
-
 /*The below part are for login and registration page*/
-
-body {
-  justify-content: center;
-  height: 80vh;
-}
-
-
 input {
   box-sizing: border-box; /* Include padding and border in the width calculation */
   width: 100%;
