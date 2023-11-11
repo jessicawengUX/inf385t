@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 
 const weaponTypes = {
-  individual: ["M4", "M249", "M17"],
+  individual: ["M4", "M249", "M17", "M110", "M2010", "M107"],
   groundCrew: ["M240", "M2", "MK19"],
   vehicleCrew: ["Abrams", "BFV", "Stryker"],
   collective: ["Squad", "Platoon", "Company"]
@@ -88,9 +88,10 @@ function Form() {
   return (
     <div className="container mt-5">
       
-      {/* Progress line code  */}
+      
 
       <div className="selection-container">
+        <br/>
         <strong style={{ fontSize: "20px" }}>Select Event Type:</strong>
         <br/>
         <br/>
