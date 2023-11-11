@@ -5,6 +5,9 @@ import React, { useRef, useState, useEffect } from "react";
 import { BiAddToQueue, BiCalendarEvent, BiInfoCircle, BiSend, BiLogOut } from "react-icons/bi";
 import { NavLink } from "react-router-dom";
 
+import "bootstrap/dist/css/bootstrap.css";
+import "./style.css";
+
 export default function Sidebar() {
   const mySidebarRef = useRef(null);
   const [mini, setMini] = useState(true);
