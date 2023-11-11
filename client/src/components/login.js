@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
+//import { useNavigate } from "react-router";
 import "bootstrap/dist/css/bootstrap.css";
-//import "bootstrap/dist/css/bootstrap.min.css";
- 
+import { useNavigate, Link } from "react-router-dom"
+import './style.css';
+
 export default function Login() {
  const [form, setForm] = useState({
    email: "",
@@ -37,8 +38,8 @@ async function onSubmit(e) {
     const data = await response.text(); // Assuming server sends back a plain text message
 
     if (response.ok) {
-      // If the login was successful, redirect to the homepage or dashboard
-      navigate("/");
+      // If the login was successful, redirect to the app page
+      navigate("/app/");
     } else {
       // If the login was unsuccessful, alert the user
       window.alert(data); // Data contains the response message from the server
@@ -54,8 +55,8 @@ async function onSubmit(e) {
  
  // This following section will display the form that takes the input from the user.
  return (
-   <div className="container text-center">
-     <h3>Login</h3>
+   <div className="container text-left">
+     <h1>Login</h1>
      <form onSubmit={onSubmit}>
        <div className="form-group">
          <label htmlFor="email">Email</label>
@@ -81,10 +82,19 @@ async function onSubmit(e) {
          <input
            type="submit"
            value="Login"
-           className="btn btn-primary"
+           className="btn btn-submit"
          />
        </div>
      </form>
+     
+      {/* Add a link to the registration page */}
+      <p>
+        Don't have an account? <Link to="/register">Register here</Link>
+      </p>
+    
    </div>
+
+
+
  );
 }

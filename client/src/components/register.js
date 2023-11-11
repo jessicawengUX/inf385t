@@ -1,50 +1,94 @@
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import "bootstrap/dist/css/bootstrap.css";
-//import "bootstrap/dist/css/bootstrap.min.css";
- 
+
+import { Link } from "react-router-dom"
+
+
 export default function Register() {
- const [form, setForm] = useState({
-   email: "",
-   password: "",
- });
- const navigate = useNavigate();
- 
- // These methods will update the state properties.
- function updateForm(value) {
-   return setForm((prev) => {
-     return { ...prev, ...value };
-   });
- }
- 
- // This function will handle the submission.
- async function onSubmit(e) {
-   e.preventDefault();
- 
-   // When a post request is sent to the create url, we'll add a new record to the database.
-   const newUser = { ...form };
- 
-   await fetch("http://localhost:5050/register", {
-     method: "POST",
-     headers: {
-       "Content-Type": "application/json",
-     },
-     body: JSON.stringify(newUser),
-   })
-   .catch(error => {
-     window.alert(error);
-     return;
-   });
- 
-   setForm({ email: "", password: ""});
-   navigate("/");
- }
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName:"",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const navigate = useNavigate();
+  
+  // These methods will update the state properties.
+  function updateForm(value) {
+    return setForm((prev) => {
+      return { ...prev, ...value };
+    });
+  }
+  
+  // This function will handle the submission.
+  async function onSubmit(e) {
+    e.preventDefault();
+  
+    // When a post request is sent to the create url, we'll add a new record to the database.
+    const newUser = { ...form };
+    
+    try {
+      const response = await fetch("http://localhost:5050/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
+    });
+
+    const data = await response.text();
+
+    if (response.ok){
+      navigate("/login")
+    } else {
+      window.alert(data);
+    }
+
+  } catch(error) {
+    window.alert("There was a problem with the registration request: " + error.message);
+  }
+  
+    
+  setForm({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+}
+
+
+
  
  // This following section will display the form that takes the input from the user.
  return (
-   <div className="container text-center">
-     <h3>Register</h3>
+  <div className="container text-left" style={{ marginTop: "130px" }}>
+     <h1>Register</h1>
      <form onSubmit={onSubmit}>
+        <div className="form-group">
+         <label htmlFor="firstName"> First Name</label>
+         <input
+           type="firstName"
+           className="form-control"
+           id="firstName"
+           value={form.firstName}
+           onChange={(e) => updateForm({ firstName: e.target.value })}
+         />
+       </div>
+       <div className="form-group">
+         <label htmlFor="lastName"> Last Name</label>
+         <input
+           type="lastName"
+           className="form-control"
+           id="lastName"
+           value={form.lastName}
+           onChange={(e) => updateForm({ lastName: e.target.value })}
+         />
+       </div>
        <div className="form-group">
          <label htmlFor="email">Email</label>
          <input
@@ -79,10 +123,18 @@ export default function Register() {
          <input
            type="submit"
            value="Register"
-           className="btn btn-primary"
+           className="btn btn-submit"
          />
        </div>
      </form>
+
+     <br />
+      <p>Already had an account?     <Link to="/login">Login Here</Link></p>
+     <br />
+
+
    </div>
  );
 }
+
+
