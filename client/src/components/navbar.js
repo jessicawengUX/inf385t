@@ -13,7 +13,7 @@ import { NavLink } from "react-router-dom";
 export default function Navbar() {
  return (
    <div>
-    // Top Navbar  
+  
     <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand ms-3" href="/../index_home.html">Ammunition Forecast Tool</a>
