@@ -13,6 +13,7 @@ import Login from "./components/login";
 import Register from "./components/register";
 import Form from "./components/form";
 import Table from "./components/table";
+import Myevents from "./components/myevents";
 
  const App = () => {
  return (
@@ -27,6 +28,7 @@ import Table from "./components/table";
             <Route exact path="/" element={<Form/>} />
             <Route path="/app" element={<Form />} />
             <Route path="/table" element={<Table />} />
+            <Route path="/myevents" element={<Myevents />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
         </Routes>

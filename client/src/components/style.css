@@ -39,6 +39,12 @@ body {
   text-align: left;
 }
 
+/* this is for the top margin of each page */
+.mt-main{
+  margin-top: 7em;
+}
+
+/*Navbar*/
 #navbar {
   position: fixed;
   top: 0;
@@ -81,13 +87,6 @@ body {
   transition: 0.5s;
 }
 
-/*need to expend the main content  
-#main {
-transition: margin-left .5s;
-padding: 16px;
-margin-left: 85px;
-}*/
-
 .sidebar a{
   border-radius: 0.5rem 0rem 0rem 0.5rem;
   padding: 0.75rem 6rem 0.75rem 0.75rem;
@@ -101,23 +100,14 @@ margin-left: 85px;
 
 .sidebar a:hover{
   color: var(--green);
-  background-color: #c1bcac;
+  background-color: var(--beige);
 }
 
 
-.active-link a{
-  border-radius: 0.5rem 0rem 0rem 0.5rem;
-  padding: 0.75rem 6rem 0.75rem 0.75rem;
-  text-decoration: none;
-  font-size: 1.25rem;
-  font-weight: 600;
-  line-height: normal;
-  display:flex;
-  color: var(--beige);        /* Text color for the active link */
-  background-color: var(--beige); /* Background color for the active link */
+.nav .active-link{
+  color: var(--green) !important;        /* Text color for the active link */
+  background-color: var(--beige) !important; /* Background color for the active link */
 }
-
-
 
 /* Progress Line */
 .progress-line {
@@ -193,6 +183,36 @@ margin-left: 85px;
   background-color: var(--yellow); /* This style will be applied to the active button */
 }
 
+/*Buttons used in event cards*/
+.btn-event {
+  font-size: 1rem;
+  padding: 4px 20px; /* Add padding to create space around the text */
+  margin-right:1rem;
+  border-radius: 4px; 
+  border-color: var(--green);
+  background-color: #fff;
+  font-weight: 500;
+}
+
+.btn-edit {
+  font-size: 1rem;
+  padding: 4px 20px; /* Add padding to create space around the text */
+  margin-right:1rem;
+  color:rgb(14, 2, 115);
+  border-style: none;
+  border-radius: 4px; 
+  font-weight: 500;
+}
+.btn-delete {
+  font-size: 1rem;
+  padding: 4px 20px; /* Add padding to create space around the text */
+  margin-right:1rem;
+  color:#900000;
+  border-style: none;
+  border-radius: 4px; 
+  font-weight: 500;
+}
+
 /* Form Section */
 .form-label1, .form-label2 {
   font-weight: bold; 
@@ -259,3 +279,23 @@ h1 {
 }
 
 /*The above part are for login and registration page*/
+
+
+/* Styles specificlly for Myevents*/
+.event-card{
+  width: 54rem;
+  flex-shrink: 0;
+  background-color: var(--beige);
+}
+
+.collapsible-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.collapsible-content {
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+}
