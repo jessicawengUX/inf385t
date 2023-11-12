@@ -46,6 +46,29 @@ function Table() {
 
   const groupedData = groupByEventType(data);
 
+  const calculateAmmoTotals = (groupedData) => {
+    const totals = {};
+  
+    Object.values(groupedData).forEach(eventDataSet => {
+      eventDataSet.forEach(item => {
+        const ammoType = item.ammoType;
+        const totalQuantity = item.data['Total'] * numberToTrain;
+  
+        if (!totals[ammoType]) {
+          totals[ammoType] = 0;
+        }
+        
+        totals[ammoType] += totalQuantity;
+      });
+    });
+  
+    return totals;
+  };
+  
+  const ammoTotals = calculateAmmoTotals(groupedData);
+  
+  
+
   return (
     <div className="container mt-5">
       <br/>
@@ -90,7 +113,7 @@ function Table() {
                 {headers.map(header => (
                   <td key={header}>{item.data[header]}</td>
                 ))}
-                <td>{item.data.Total}</td>
+                <td>{item.data.Total}</td>  
               </tr>
               <tr key={`x-people-${idx}`} className="table-info">
                 <td>x{numberToTrain} People</td>
@@ -108,7 +131,26 @@ function Table() {
     </div>
         );
       })}
+    <div className="mt-4">
+      <h3>Total Ammo Required</h3>
+      <table className="table">
+        <thead>
+          <tr>
+            <th>Ammo Type</th>
+            <th>Total Quantity</th>
+          </tr>
+        </thead>
+        <tbody>
+          {Object.keys(ammoTotals).map(ammoType => (
+            <tr key={ammoType}>
+              <td>{ammoType}</td>
+              <td>{ammoTotals[ammoType]}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
+  </div>
   );
 }
 
