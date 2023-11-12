@@ -183,6 +183,13 @@ body {
   background-color: var(--yellow); /* This style will be applied to the active button */
 }
 
+.disabled-button {
+  background-color: grey !important;
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+}
+
+
 /*Buttons used in event cards*/
 .btn-event {
   font-size: 1rem;

@@ -82,7 +82,14 @@ function Form() {
 
   // A function to get button classes
   const getButtonClasses = (event) => {
-    return `btn btn-primary btn-lg rounded mb-3 ${selectedEvent === event ? 'btn-active' : ''}`;
+    let classes = `btn btn-primary btn-lg rounded mb-3`;
+    if (selectedEvent === event) {
+      classes += ' btn-active';
+    }
+    if (["groundCrew", "vehicleCrew", "collective"].includes(event)) {
+      classes += ' disabled-button';
+    }
+    return classes;
   };
 
   return (
