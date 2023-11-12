@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.css";
 
+import html2canvas from 'html2canvas';
+import { jsPDF } from 'jspdf';
+
+
 function Table() {
   const [data, setData] = useState([]);
   const location = useLocation();
@@ -46,6 +50,7 @@ function Table() {
 
   const groupedData = groupByEventType(data);
 
+  // This function calculates the values for the last table (Total Ammo Required)
   const calculateAmmoTotals = (groupedData) => {
     const totals = {};
   
@@ -67,10 +72,37 @@ function Table() {
   
   const ammoTotals = calculateAmmoTotals(groupedData);
   
+  // This function handles the download PDF button
+  const handleDownloadPdf = () => {
+    // Target the specific container holding the tables
+    const content = document.getElementById('tables-container'); 
   
-
+    html2canvas(content, {
+      scale: 3, // You can adjust the scale for better quality
+      useCORS: true
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+  
+      // Calculate the PDF page size based on the canvas size
+      const pdfWidth = canvas.width;
+      const pdfHeight = canvas.height;
+  
+      // Create a PDF with calculated dimensions
+      const pdf = new jsPDF({
+        orientation: pdfWidth > pdfHeight ? 'landscape' : 'portrait',
+        unit: 'px',
+        format: [pdfWidth, pdfHeight]
+      });
+  
+      pdf.addImage(imgData, 'PNG', 25, 0, pdfWidth-50, pdfHeight);
+      pdf.save('tables-screenshot.pdf');
+    });
+  };
+  
+  
   return (
     <div className="container mt-5">
+    <div id="tables-container">
       <br/>
       <br/>
       <h2>Training Qualification Details</h2>
@@ -78,7 +110,6 @@ function Table() {
       {location.state.event && <p><strong>Event Type:</strong> {location.state.event}</p>}
       {location.state.weapon && <p><strong>Weapon Type:</strong> {location.state.weapon}</p>}
       {location.state.number && <p><strong>Number to Train:</strong> {location.state.number}</p>}
-      <br/>
 
       {Object.keys(groupedData).map((eventType, index) => {
       const eventDataSet = groupedData[eventType];
@@ -92,6 +123,7 @@ function Table() {
 
   return (
     <div key={index}>
+      <br/>
       <h3>{eventType}</h3>
       <table className="table">
         <thead>
@@ -127,11 +159,11 @@ function Table() {
           ))}
         </tbody>
       </table>
-      <br/>
     </div>
         );
       })}
     <div className="mt-4">
+      <br/>
       <h3>Total Ammo Required</h3>
       <table className="table">
         <thead>
@@ -150,6 +182,11 @@ function Table() {
         </tbody>
       </table>
     </div>
+    <br/>
+  </div>
+    <button className="btn btn-submit" onClick={handleDownloadPdf}>Download as PDF</button>
+    <br/>
+    <br/>
   </div>
   );
 }
