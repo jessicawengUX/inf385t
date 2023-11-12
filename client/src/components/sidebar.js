@@ -59,6 +59,7 @@ export default function Sidebar() {
           </NavLink>
         </li>
         <li>
+
           <NavLink to="/../index_home.html#contact-bg" role="link" activeClassName="active-link">
             <BiSend size={24} style={{ marginRight: spacing+'em' }} />
             <span>Contact Us</span>
