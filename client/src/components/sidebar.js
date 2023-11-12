@@ -11,10 +11,8 @@ import "./style.css";
 export default function Sidebar() {
   const mySidebarRef = useRef(null);
   const [mini, setMini] = useState(true);
-
   const toggleSidebar = (isMouseEnter) => {
     const mySidebar = mySidebarRef.current;
-
     if (isMouseEnter && !mini) {
       mySidebar.style.width = "13.5rem";
       setMini(true);
@@ -23,52 +21,46 @@ export default function Sidebar() {
       setMini(false);
     }
   };
-
   useEffect(() => {
     const mySidebar = mySidebarRef.current;
-
     const handleMouseEnter = () => {
       toggleSidebar(true);
     };
-
     const handleMouseLeave = () => {
       toggleSidebar(false);
     };
-
     mySidebar.addEventListener("mouseenter", handleMouseEnter);
     mySidebar.addEventListener("mouseleave", handleMouseLeave);
-
     return () => {
       mySidebar.removeEventListener("mouseenter", handleMouseEnter);
       mySidebar.removeEventListener("mouseleave", handleMouseLeave);
     };
   }, [mini, toggleSidebar]);
-
   const spacing = '1.25';
-
   return (
     <nav role="Side" className="sidebar" id="mySidebar" ref={mySidebarRef}>
-      <ol className="nav text-left .active-link">
+      <ol className="nav text-left">
         <li>
-          <NavLink to="/app" role="link">
+          <NavLink to="/app" activeClassName="active-link">
             <BiAddToQueue size={24} style={{ marginRight: spacing +'em' }} />
             <span>Create Event</span>
           </NavLink>
         </li>
         <li>
-          <NavLink to="/myevents" role="link">
+          <NavLink to="/myevents" exact activeClassName="active-link">
             <BiCalendarEvent size={24} style={{ marginRight: spacing+'em' }} />
             <span>My Events</span>
           </NavLink>
         </li>
-        <li className="logo-details">
-          <NavLink to="/app" role="link">
+        <li>
+          <NavLink to="#" activeClassName="active-link">
             <BiInfoCircle size={24} style={{ marginRight: spacing +'em'}} />
             <span>FAQs</span>
           </NavLink>
         </li>
         <li>
-          <NavLink to="/../index_home.html#contact-bg" role="link">
+
+          <NavLink to="/../index_home.html#contact-bg" role="link" activeClassName="active-link">
             <BiSend size={24} style={{ marginRight: spacing+'em' }} />
             <span>Contact Us</span>
           </NavLink>
