@@ -1,66 +1,73 @@
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import "bootstrap/dist/css/bootstrap.css";
+import { Link } from "react-router-dom";
+import bcrypt from "bcryptjs"; // Import bcryptjs
 
-import { Link } from "react-router-dom"
 
+const sha256 = require('sha256');
 
 export default function Register() {
   const [form, setForm] = useState({
-    firstName: "",
-    lastName:"",
-    email: "",
-    password: "",
-    confirmPassword: "",
-  });
-  const navigate = useNavigate();
-  
-  // These methods will update the state properties.
-  function updateForm(value) {
-    return setForm((prev) => {
-      return { ...prev, ...value };
-    });
-  }
-  
-  // This function will handle the submission.
-  async function onSubmit(e) {
-    e.preventDefault();
-  
-    // When a post request is sent to the create url, we'll add a new record to the database.
-    const newUser = { ...form };
-    
-    try {
-      const response = await fetch("http://localhost:5050/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newUser),
-    });
-
-    const data = await response.text();
-
-    if (response.ok){
-      navigate("/login")
-    } else {
-      window.alert(data);
-    }
-
-  } catch(error) {
-    window.alert("There was a problem with the registration request: " + error.message);
-  }
-  
-    
-  setForm({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
   });
-}
+  const navigate = useNavigate();
 
+  function updateForm(value) {
+    return setForm((prev) => {
+      return { ...prev, ...value };
+    });
+  }
+
+    // This function will handle the submission.
+    async function onSubmit(e) {
+      e.preventDefault();
+
+          // Hash both the password and confirmPassword before sending them to the server
+      const hashedPassword = sha256(form.password);
+      const hashedConfirmPassword = sha256(form.confirmPassword);
+
+      const newUser = {
+        ...form,
+        password: hashedPassword,
+        confirmPassword: hashedConfirmPassword,
+      };
+      
+      try {
+        const response = await fetch("http://localhost:5050/register", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(newUser),
+        });
+
+      const data = await response.text();
+
+      if (response.ok) {
+        window.alert("Registered Successfully!");
+        navigate("/login");
+      } else {
+        window.alert(data);
+      }
+    } catch (error) {
+      window.alert(
+        "There was a problem with the registration request: " + error.message
+      );
+    }
+
+    setForm({
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    });
+  }
 
 
  

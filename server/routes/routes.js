@@ -2,6 +2,7 @@ const express = require("express");
 const path = require('path');
 const session = require('express-session');
 const nodemailer=require('nodemailer');
+const sha256 = require('sha256');
 
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const appRouter = express.Router();
@@ -114,12 +115,17 @@ appRouter.route("/register").post(async function (req, response) {
     }
 
     let db_connect = dbo.getDb();
+    
+    // Hash both the password and confirmPassword before comparing
+    const hashedPassword = sha256(req.body.password);
+    const hashedConfirmPassword = sha256(req.body.confirmPassword);
+    
+    
     let registrationDetails = {
       email: req.body.email,
-      password: req.body.password,
+      password: hashedPassword,
       firstName: req.body.firstName,
       lastName: req.body.lastName,
-      confirmPassword: req.body.confirmPassword,
     };
 
     // Check if the email is already registered
@@ -129,14 +135,13 @@ appRouter.route("/register").post(async function (req, response) {
       response.status(409).send("Email is already registered!"); // Conflict
     } else {
       // Check if passwords match
-      if (registrationDetails.password !== registrationDetails.confirmPassword) {
-        response.status(400).send("Passwords do not match!"); // Bad Request
-      } else {
-        // If the email is not registered and passwords match, proceed with registration
-        delete registrationDetails.confirmPassword; // Remove confirmPassword from stored data
-        await db_connect.collection("customers").insertOne(registrationDetails);
-        response.send("Registration successful!");
-      }
+    if (hashedPassword !== hashedConfirmPassword) {
+      response.status(400).send("Passwords do not match!"); // Bad Request
+    } else {
+      // If the email is not registered and passwords match, proceed with registration
+      await db_connect.collection("customers").insertOne(registrationDetails);
+      response.send("Registration successful!");
+    }
     }
   } catch (error) {
     console.error('Registration error:', error);
@@ -150,26 +155,29 @@ appRouter.route("/register").post(async function (req, response) {
 appRouter.get("/login", function (req, res) {
   res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
 });
+
+
 // Post for login function
 appRouter.route("/login").post(async function (req, response) {
   try {
     let db_connect = dbo.getDb();
     let loginCredentials = {
       email: req.body.email,
-      password: req.body.password,
+      password: sha256(req.body.password), // Hash the password
     };
 
     const user = await db_connect.collection("customers").findOne({ email: loginCredentials.email });
 
     if (user) {
+      // Compare hashed passwords
       if (user.password === loginCredentials.password) {
         req.session.user = loginCredentials.email;
         response.send("logged in!");
       } else {
-        response.status(401).send("email or/and password is incorrect!"); // Unauthorized
+        response.status(401).send("Email or/and password is incorrect!"); // Unauthorized
       }
-    }   else {
-        response.status(401).send("email or/and password is incorrect!"); // Unauthorized
+    } else {
+      response.status(401).send("Email or/and password is incorrect!"); // Unauthorized
     }
   } catch (error) {
     console.error('Login error:', error);
