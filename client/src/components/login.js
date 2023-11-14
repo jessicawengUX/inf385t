@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import { useNavigate, Link } from "react-router-dom"
 import './style.css';
+const sha256 = require('sha256');
 
 export default function Login() {
  const [form, setForm] = useState({
@@ -23,8 +24,15 @@ export default function Login() {
 async function onSubmit(e) {
   e.preventDefault();
 
+   // Hash the password before sending it to the server
+   const hashedPassword = sha256(form.password);
+
+
   // When a post request is sent to the create url, we'll add a new record to the database.
-  const loginCredentials = { ...form };
+  const loginCredentials = {
+    ...form,
+    password: hashedPassword, // Use the hashed password
+  };
 
   try {
     const response = await fetch("http://localhost:5050/login", {
@@ -35,9 +43,11 @@ async function onSubmit(e) {
       body: JSON.stringify(loginCredentials),
     });
 
+
     const data = await response.text(); // Assuming server sends back a plain text message
 
     if (response.ok) {
+      window.alert("Logged In Successfully!")
       // If the login was successful, redirect to the app page
       navigate("/app/");
     } else {
