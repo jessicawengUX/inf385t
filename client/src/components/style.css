@@ -220,6 +220,12 @@ body {
   font-weight: 500;
 }
 
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+
 /* Form Section */
 .form-label1, .form-label2 {
   font-weight: bold; 

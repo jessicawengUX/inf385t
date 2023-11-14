@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.css";
 
 import html2canvas from 'html2canvas';
@@ -9,6 +9,7 @@ import { jsPDF } from 'jspdf';
 function Table() {
   const [data, setData] = useState([]);
   const location = useLocation();
+  const navigate = useNavigate();
   const [numberToTrain, setNumberToTrain] = useState(1); // Default to 1 if not specified
 
   useEffect(() => {
@@ -99,7 +100,11 @@ function Table() {
     });
   };
   
-  
+  const handleSaveData = () => {
+    // Navigate to SaveEvent component with table data
+    navigate('/saveEvent', { state: { tableData: data } });
+  };
+
   return (
     <div className="container mt-5">
     <div id="tables-container">
@@ -184,7 +189,10 @@ function Table() {
     </div>
     <br/>
   </div>
+  <div className="button-container">
     <button className="btn btn-submit" onClick={handleDownloadPdf}>Download as PDF</button>
+    <button className="btn btn-submit" onClick={handleSaveData}>Save Event</button>
+  </div>
     <br/>
     <br/>
   </div>
