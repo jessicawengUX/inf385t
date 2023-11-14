@@ -241,6 +241,19 @@ appRouter.post('/send-email', (req, res) => {
 });
   
 
+
+// Route for user to faq.
+appRouter.get("/faq", function (req, res) {
+  res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
+});
+
+// Route for user to table.
+appRouter.get("/table", function (req, res) {
+  res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
+});
+
+
+
 module.exports = appRouter;
 
 
