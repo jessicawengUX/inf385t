@@ -250,8 +250,6 @@ body {
   background-color: #edeade;
 }
 
-
-
 /*The below part are for login and registration page*/
 input {
   box-sizing: border-box; /* Include padding and border in the width calculation */
@@ -312,3 +310,21 @@ h1 {
   background-color: #f0f0f0;
   border: 1px solid #ccc;
 }
+
+
+/* Styles specificlly for FAQ*/
+.faq-container {
+  text-align: left;
+  margin: 0 auto;
+  max-width: fit-content;
+  width: 70%; /* Adjust this as per your layout */
+}
+
+.faq-item {
+  margin-bottom: 30px;
+}
+
+.faq-item h3 {
+  font-weight: bold;
+}
+

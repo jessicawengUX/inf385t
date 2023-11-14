@@ -15,6 +15,7 @@ import Form from "./components/form";
 import Table from "./components/table";
 import Myevents from "./components/myevents";
 import SaveEvent from "./components/saveEvent";
+import Faq from "./components/faq";
 
  const App = () => {
  return (
@@ -33,6 +34,7 @@ import SaveEvent from "./components/saveEvent";
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/saveEvent" element={<SaveEvent />} />
+            <Route path="/faq" element={<Faq />} />
         </Routes>
         </div>
      </div>

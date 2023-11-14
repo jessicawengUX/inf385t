@@ -53,7 +53,7 @@ export default function Sidebar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="#" activeClassName="active-link">
+          <NavLink to="/faq" activeClassName="active-link">
             <BiInfoCircle size={24} style={{ marginRight: spacing +'em'}} />
             <span>FAQs</span>
           </NavLink>
