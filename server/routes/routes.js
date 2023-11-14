@@ -178,6 +178,33 @@ appRouter.route("/login").post(async function (req, response) {
 });
 
 
+// Route to save event data
+appRouter.post('/saveEvent', async function (req, res) {
+  try {
+    let db_connect = dbo.getDb();
+    let eventData = {
+      eventName: req.body.eventName,
+      startDate: req.body.startDate,
+      endDate: req.body.endDate,
+      location: req.body.location,
+      additionalInfo: req.body.additionalInfo,
+      tableData: req.body.tableData
+    };
+
+    // Perform validation here if necessary
+
+    // Save to MongoDB
+    await db_connect.collection("eventsCollection").insertOne(eventData);
+    res.send("Event saved successfully!");
+
+  } catch (error) {
+    console.error('Error saving event:', error);
+    res.status(500).send("Internal server error occurred while trying to save the event."); // Internal Server Error
+  }
+});
+
+
+
 //sending email from contact form
 appRouter.post('/send-email', (req, res) => {
    let transporter = nodemailer.createTransport({

@@ -1,25 +1,66 @@
-import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import "bootstrap/dist/css/bootstrap.css";
 
 function SaveEvent() {
   const location = useLocation();
+  const navigate = useNavigate();
   const tableData = location.state.tableData; // Retrieve passed table data
-  const [additionalInfo, setAdditionalInfo] = useState('');
+
+  // State for form fields
   const [eventName, setEventName] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [locationText, setLocationText] = useState('');
+  const [additionalInfo, setAdditionalInfo] = useState('');
 
-  const handleSubmit = async () => {
-    const combinedData = {
-      tableData,
+  // New state variable for form validation
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  // Validate form whenever relevant fields change
+  useEffect(() => {
+    setIsFormValid(!!eventName.trim() && !!startDate && !!endDate);
+  }, [eventName, startDate, endDate]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Check if mandatory fields are filled
+    if (!eventName.trim() || !startDate || !endDate) {
+      window.alert("Please fill out the Event Name, Start Date, and End Date.");
+      return; // Prevent the form from submitting
+    }
+
+    const eventData = {
       eventName,
-      dates: { start: startDate, end: endDate },
+      startDate,
+      endDate,
       location: locationText,
-      additionalInfo
+      additionalInfo,
+      tableData
     };
 
-    // Code to send combinedData to your server for saving to MongoDB
+    try {
+      // Send a POST request to your server endpoint
+      const response = await fetch('http://localhost:5050/saveEvent', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(eventData),
+      });
+
+      const data = await response.text();
+
+      if (response.ok) {
+        // Redirect or display success message
+        navigate('/path-to-redirect');
+      } else {
+        window.alert(data); // Display error message
+      }
+    } catch (error) {
+      window.alert("There was a problem with saving the event: " + error.message);
+    }
   };
 
   return (
@@ -62,7 +103,7 @@ function SaveEvent() {
         onChange={(e) => setAdditionalInfo(e.target.value)}
         placeholder="Additional Info"
       />
-      <button className="btn btn-submit" onClick={handleSubmit}>Save Event Info</button>
+      <button className={`btn btn-submit ${!isFormValid ? 'disabled-button' : ''}`} onClick={handleSubmit} disabled={!isFormValid}>Save Event Info</button>
     </div>
   );
 }
