@@ -18,9 +18,6 @@ function SaveEvent() {
   const userId = localStorage.getItem('userId');
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(!!userId);
 
-  // Get the user ID from local storage
-  //const userId = localStorage.getItem('userId'); 
-
   // New state variable for form validation
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -72,7 +69,7 @@ function SaveEvent() {
   };
 
   return (
-    <div>
+    <div className='event-container'>
       <br/>
       <br/>
       <br/>
@@ -81,35 +78,47 @@ function SaveEvent() {
 
       <h2>Save Event Details</h2>
       {/* Form for event details */}
+      <label htmlFor="eventName">Event Name <span className="required-asterisk">*</span></label>
       <input
+        id="eventName"
         type="text"
         value={eventName}
         onChange={(e) => setEventName(e.target.value)}
-        placeholder="Event Name"
+        placeholder="Enter event name"
       />
+
+      <label htmlFor="startDate">Start Date <span className="required-asterisk">*</span></label>
       <input
+        id="startDate"
         type="date"
         value={startDate}
         onChange={(e) => setStartDate(e.target.value)}
-        placeholder="Start Date"
       />
+
+      <label htmlFor="endDate">End Date <span className="required-asterisk">*</span></label>
       <input
+        id="endDate"
         type="date"
         value={endDate}
         onChange={(e) => setEndDate(e.target.value)}
-        placeholder="End Date"
       />
+
+      <label htmlFor="locationText">Location</label>
       <input
+        id="locationText"
         type="text"
         value={locationText}
         onChange={(e) => setLocationText(e.target.value)}
-        placeholder="Location"
+        placeholder="Enter location"
       />
+
+      <label htmlFor="additionalInfo">Additional Info</label>
       <input
+        id="additionalInfo"
         type="text"
         value={additionalInfo}
         onChange={(e) => setAdditionalInfo(e.target.value)}
-        placeholder="Additional Info"
+        placeholder="Enter additional info"
       />
       <button 
         className={`btn btn-submit ${!isFormValid ? 'disabled-button' : ''}`} 
@@ -118,6 +127,11 @@ function SaveEvent() {
       >
         Save Event Info
       </button>
+      {!isUserLoggedIn && (
+        <p className="login-message">
+          Must be logged in to save event.
+        </p>
+      )}
     </div>
   );
 }
