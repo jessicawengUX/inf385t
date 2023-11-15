@@ -20,10 +20,11 @@ function Table() {
       query.eventType = query.weapon + '.*';
     }
 
-    const searchParams = new URLSearchParams(query).toString();
+    /*const searchParams = new URLSearchParams(query).toString();*/
 
     const fetchData = async () => {
-      const response = await fetch(`/table?${searchParams}`);
+      const searchParams = new URLSearchParams(query).toString();
+      const response = await fetch(`/api/tableData?${searchParams}`);
       const result = await response.json();
       setData(result);
     };

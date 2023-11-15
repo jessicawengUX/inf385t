@@ -6,7 +6,6 @@ const sha256 = require('sha256');
 
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const appRouter = express.Router();
-
 appRouter.use(express.json());
 
 appRouter.use(session({secret: "Your secret key", resave: false, saveUninitialized: false}));
@@ -16,7 +15,6 @@ appRouter.use(session({secret: "Your secret key", resave: false, saveUninitializ
 const dbo = require("../database/conn");
 
 //Serve static files from the "public" directory
-
 appRouter.route('/').get(function (req, res) {
     res.sendFile(path.join(__dirname, '..', '..', 'client', 'public', 'index_home.html'));
 });
@@ -26,7 +24,6 @@ appRouter.route('/').get(function (req, res) {
 appRouter.use(express.static(path.join(__dirname, '..', '..', 'client', 'public')));
 
 
-//try
 // POST route to handle search query from Form.js
 appRouter.post('/api/query', async (req, res) => {
    console.log("Received request on /api/query");
@@ -55,14 +52,17 @@ appRouter.post('/api/query', async (req, res) => {
    }
  });
  
+
 appRouter.use('/app', express.static(path.join(__dirname, '..', '..', 'client', 'build')));
+
 
 appRouter.get('/app/*', function (req, res) {
     res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
 });
 
-// This section will help you get a list of all the records.
-appRouter.route("/table").get(async function (req, res) {
+
+// Table data route and get requests
+appRouter.route("/api/tableData").get(async function (req, res) {
   let db_connect = dbo.getDb("ammoForecastTool");
 
   // Initialize query object
@@ -93,9 +93,36 @@ appRouter.route("/table").get(async function (req, res) {
   }
 });
 
+appRouter.get("/api/tableData", async function (req, res) {
+  let db_connect = dbo.getDb("ammoForecastTool");
 
+  // ... your logic to construct the query from req.query
+  // Initialize query object
+  let query = {};
 
+    // Check if eventType parameter is provided and use a regex to match the pattern
+  if (req.query.eventType) {
+    query.eventType = new RegExp(req.query.eventType, 'i'); // 'i' for case-insensitive
+  }
+  
+    // Clean the query object to remove undefined or empty keys
+  Object.keys(query).forEach(key => {
+    if (query[key] === undefined || query[key] === '') {
+      delete query[key];
+    }
+    });
 
+  try {
+    const results = await db_connect.collection("individualQualifications").find(query).toArray();
+    res.json(results);
+  } catch (error) {
+    res.status(500).send({ message: "Error fetching data", error: error });
+  }
+});
+
+appRouter.get("/table", function (req, res) {
+  res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
+});
 
 
 // Route for user registration.
@@ -199,8 +226,6 @@ appRouter.post('/saveEvent', async function (req, res) {
       tableData: req.body.tableData
     };
 
-    // Perform validation here if necessary
-
     // Save to MongoDB
     await db_connect.collection("eventsCollection").insertOne(eventData);
     res.send("Event saved successfully!");
@@ -211,7 +236,9 @@ appRouter.post('/saveEvent', async function (req, res) {
   }
 });
 
-
+appRouter.get("/saveEvent", function (req, res) {
+  res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
+});
 
 //sending email from contact form
 appRouter.post('/send-email', (req, res) => {
@@ -241,22 +268,17 @@ appRouter.post('/send-email', (req, res) => {
 });
   
 
-
 // Route for user to faq.
 appRouter.get("/faq", function (req, res) {
   res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
 });
 
-// Route for user to table.
-appRouter.get("/table", function (req, res) {
+// Route for user to myevents.
+appRouter.get("/myevents", function (req, res) {
   res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
 });
 
 
-
 module.exports = appRouter;
-
-
-
 
 
