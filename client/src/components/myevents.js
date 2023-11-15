@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.css";
 import "./style.css";
 
 export default function Myevents() {
-  
+
   //Collapsible Content
   const [collapsibleOpen, setCollapsibleOpen] = useState(false);
 
@@ -18,23 +18,37 @@ export default function Myevents() {
   };
 
 
-  //Access to the eventsCollection
-   const [eventsData, setEventsData] = useState([]);
+  const userId = localStorage.getItem('userId');
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await fetch('/api/events'); // Assuming your Express server has an endpoint for fetching events
-        const data = await response.json();
-        setEventsData(data);
-      } catch (error) {
-        console.error('Error fetching events:', error);
-      }
-    };
+  //Access to the eventsCollection
+  const [eventsData, setEventsData] = useState([]);
+
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await fetch(`/myevents?userId=${userId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+      setEventsData(data);
+    } catch (error) {
+      console.error('Error fetching events:', error);
+    }
+  };
 
     fetchData();
-  }, []); // The empty dependency array ensures the effect runs only once, similar to componentDidMount
+  }, [userId]); 
 
+  const firstEvent = eventsData[0] || {}; // Use an empty object as a fallback
+  const eventName = firstEvent?.eventName || '';
+  const startDate = firstEvent?.startDate || '';
+  const endDate = firstEvent?.endDate || '';
+  const location = firstEvent?.location || '';
+  const additionalInfo = firstEvent?.additionalInfo || '';
   
   
   //Download JPG
@@ -56,12 +70,13 @@ export default function Myevents() {
     return (
       <div className="container mt-main">
         <h3 className="mb-4">My Events</h3>
-        {eventsData.map((event, index) => (
-        <div key={index} className="card event-card">
+        <div className="card event-card">
           <div className="card-body">
-            <h5 className="card-title">{event.eventName}</h5>
-            <h6 className="card-subtitle mb-2 text-body-secondary" >
-              {event.StartDate}
+            <h5 className="card-title">{eventName}</h5>
+            <h6 className="card-subtitle mb-2 text-body-secondary">
+              Time: {startDate} to {endDate} <br/>
+              Location: {location}<br/>
+              Additional Info: {additionalInfo}
             </h6>
             <p className="card-text">Training type, weapon and number to teain</p>
 
@@ -97,7 +112,6 @@ export default function Myevents() {
               </div>
               </div>
             </div>
-        ))}
       </div>
     );
   }

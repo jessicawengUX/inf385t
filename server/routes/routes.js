@@ -285,8 +285,29 @@ appRouter.get("/faq", function (req, res) {
 });
 
 // Route for user to myevents.
-appRouter.get("/myevents", function (req, res) {
-  res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
+appRouter.get("/myevents", async function (req, res) {
+  //res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
+  let db_connect = dbo.getDb();
+  
+  const userId = req.query.userId; // Use req.query to get the userId from URL parameters
+
+  if (!userId) {
+    return res.status(400).send("User ID is required");
+  }
+
+  // Construct a query object based on the supplied form data
+  let query = { userId };
+
+  // Fetch the events from the database using the constructed query
+  try {
+    const results = await db_connect.collection("eventsCollection")
+      .find(query)
+      .toArray();
+    res.json(results);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching data", error: error });
+    console.log(error);
+  }
 });
 
 
