@@ -3,14 +3,15 @@ import React, { useRef, useState, useEffect } from "react";
 //import react icon will need to put'npm install react-icons' in the client folder
 //library in https://react-icons.github.io/react-icons/search?q=Bilog
 import { BiAddToQueue, BiCalendarEvent, BiInfoCircle, BiSend, BiLogOut } from "react-icons/bi";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "./style.css";
 
-export default function Sidebar() {
+export default function Sidebar({ onLogout }) {
   const mySidebarRef = useRef(null);
   const [mini, setMini] = useState(true);
+  const navigate = useNavigate();
   const toggleSidebar = (isMouseEnter) => {
     const mySidebar = mySidebarRef.current;
     if (isMouseEnter && !mini) {
@@ -37,6 +38,14 @@ export default function Sidebar() {
     };
   }, [mini, toggleSidebar]);
   const spacing = '1.25';
+
+  const handleLogoutClick = () => {
+    // Handle logout logic
+    onLogout();
+    // Navigate to the /app route after logout
+    navigate("/app");
+  };
+  
   return (
     <nav role="Side" className="sidebar" id="mySidebar" ref={mySidebarRef}>
       <ol className="nav text-left">
@@ -65,10 +74,10 @@ export default function Sidebar() {
           </a>
         </li>
         <li>
-          <NavLink to="/app" role="link">
-            <BiLogOut size={24} style={{ marginRight: spacing+'em' }} />
-            <span>Log Out</span>
-          </NavLink>
+          <a href="/app" onClick={() => navigate("/app")}>
+            <BiLogOut size={24} style={{ marginRight: spacing + 'em' }} onClick={handleLogoutClick} />
+            <span onClick={handleLogoutClick}>Log Out</span>
+          </a>
         </li>
       </ol>
     </nav>
