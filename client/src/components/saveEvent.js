@@ -14,13 +14,20 @@ function SaveEvent() {
   const [locationText, setLocationText] = useState('');
   const [additionalInfo, setAdditionalInfo] = useState('');
 
+  // Check if user is logged in
+  const userId = localStorage.getItem('userId');
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(!!userId);
+
+  // Get the user ID from local storage
+  //const userId = localStorage.getItem('userId'); 
+
   // New state variable for form validation
   const [isFormValid, setIsFormValid] = useState(false);
 
   // Validate form whenever relevant fields change
   useEffect(() => {
-    setIsFormValid(!!eventName.trim() && !!startDate && !!endDate);
-  }, [eventName, startDate, endDate]);
+    setIsFormValid(!!eventName.trim() && !!startDate && !!endDate && isUserLoggedIn);
+  }, [eventName, startDate, endDate, isUserLoggedIn]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -37,7 +44,8 @@ function SaveEvent() {
       endDate,
       location: locationText,
       additionalInfo,
-      tableData
+      tableData,
+      userId
     };
 
     try {
@@ -103,7 +111,13 @@ function SaveEvent() {
         onChange={(e) => setAdditionalInfo(e.target.value)}
         placeholder="Additional Info"
       />
-      <button className={`btn btn-submit ${!isFormValid ? 'disabled-button' : ''}`} onClick={handleSubmit} disabled={!isFormValid}>Save Event Info</button>
+      <button 
+        className={`btn btn-submit ${!isFormValid ? 'disabled-button' : ''}`} 
+        onClick={handleSubmit} 
+        disabled={!isFormValid}
+      >
+        Save Event Info
+      </button>
     </div>
   );
 }

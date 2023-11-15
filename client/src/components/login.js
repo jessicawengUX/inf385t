@@ -1,37 +1,29 @@
 import React, { useState } from "react";
-//import { useNavigate } from "react-router";
+import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
-import { useNavigate, Link } from "react-router-dom"
 import './style.css';
 const sha256 = require('sha256');
 
-export default function Login() {
+export default function Login({ onLogin }) {
  const [form, setForm] = useState({
    email: "",
    password: "",
  });
  const navigate = useNavigate();
  
- // These methods will update the state properties.
  function updateForm(value) {
    return setForm((prev) => {
      return { ...prev, ...value };
    });
  }
- 
 
-// This function will handle the submission.
 async function onSubmit(e) {
   e.preventDefault();
+  const hashedPassword = sha256(form.password);
 
-   // Hash the password before sending it to the server
-   const hashedPassword = sha256(form.password);
-
-
-  // When a post request is sent to the create url, we'll add a new record to the database.
   const loginCredentials = {
     ...form,
-    password: hashedPassword, // Use the hashed password
+    password: hashedPassword,
   };
 
   try {
@@ -43,22 +35,20 @@ async function onSubmit(e) {
       body: JSON.stringify(loginCredentials),
     });
 
-
-    const data = await response.text(); // Assuming server sends back a plain text message
+    const data = await response.json(); // Expecting JSON response now
 
     if (response.ok) {
-      window.alert("Logged In Successfully!")
-      // If the login was successful, redirect to the app page
+      localStorage.setItem('userId', data.userId); // Store user ID in local storage
+      onLogin(form.email);
       navigate("/app/");
+      window.alert("Logged In Successfully!");
     } else {
-      // If the login was unsuccessful, alert the user
-      window.alert(data); // Data contains the response message from the server
+      window.alert(data.message); // Adjust based on server response structure
     }
   } catch (error) {
     window.alert("There was a problem with the login request: " + error.message);
   }
 
-  // Reset the form
   setForm({ email: "", password: "" });
 }
 
