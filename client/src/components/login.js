@@ -5,7 +5,7 @@ import { useNavigate, Link } from "react-router-dom"
 import './style.css';
 const sha256 = require('sha256');
 
-export default function Login() {
+export default function Login({ onLogin }) {
  const [form, setForm] = useState({
    email: "",
    password: "",
@@ -48,6 +48,7 @@ async function onSubmit(e) {
 
     if (response.ok) {
       window.alert("Logged In Successfully!")
+      onLogin(form.email); // Call the onLogin function with the user's email/name
       // If the login was successful, redirect to the app page
       navigate("/app/");
     } else {

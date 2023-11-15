@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 // We use Route in order to define the different routes of our application
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 
 import './App.css'; // Import your global styles
 import "bootstrap/dist/css/bootstrap.css";
@@ -17,22 +17,35 @@ import Myevents from "./components/myevents";
 import SaveEvent from "./components/saveEvent";
 import Faq from "./components/faq";
 
- const App = () => {
+const App = () => {
+  const [isLoggedIn, setLoggedIn] = useState(false);
+  const [userName, setUserName] = useState("");
+
+  const handleLogin = (userName) => {
+    setLoggedIn(true);
+    setUserName(userName);
+  };
+
+  const handleLogout = () => {
+    setLoggedIn(false);
+    setUserName("");
+  };
+
  return (
    <div>
-     <Navbar />
-     <div className="d-flex flex-row"> 
-      <div className="flex-fill">
-          <Sidebar />
-      </div>
-      <div className="flex-fill">
-        <Routes>
+     <Navbar isLoggedIn={isLoggedIn} userName={userName} onLogout={handleLogout} />
+      <div className="d-flex flex-row">
+        <div className="flex-fill">
+          <Sidebar onLogout={handleLogout} />
+        </div>
+        <div className="flex-fill">
+          <Routes>
             <Route exact path="/" element={<Form/>} />
             <Route path="/app" element={<Form />} />
             <Route path="/table" element={<Table />} />
             <Route path="/myevents" element={<Myevents />} />
+            <Route path="/login" element={<Login onLogin={handleLogin} />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
             <Route path="/saveEvent" element={<SaveEvent />} />
             <Route path="/faq" element={<Faq />} />
         </Routes>
@@ -42,10 +55,6 @@ import Faq from "./components/faq";
  );
 };
  export default App;
-
-
-
-
 
 
 
