@@ -199,7 +199,9 @@ appRouter.route("/login").post(async function (req, response) {
       // Compare hashed passwords
       if (user.password === loginCredentials.password) {
         req.session.user = loginCredentials.email;
-        response.send("logged in!");
+
+        // Send back a response including the user's ID
+        response.json({ message: "logged in!", userId: user._id }); // Assuming _id is the MongoDB user ID field
       } else {
         response.status(401).send("Email or/and password is incorrect!"); // Unauthorized
       }
@@ -213,17 +215,25 @@ appRouter.route("/login").post(async function (req, response) {
 });
 
 
+
 // Route to save event data
 appRouter.post('/saveEvent', async function (req, res) {
   try {
     let db_connect = dbo.getDb();
+    
+    // Ensure that userId is included in the request body
+    if (!req.body.userId) {
+      return res.status(400).send("User ID is required");
+    }
+
     let eventData = {
       eventName: req.body.eventName,
       startDate: req.body.startDate,
       endDate: req.body.endDate,
       location: req.body.location,
       additionalInfo: req.body.additionalInfo,
-      tableData: req.body.tableData
+      tableData: req.body.tableData,
+      userId: req.body.userId // Include the userId in the eventData
     };
 
     // Save to MongoDB
@@ -232,9 +242,10 @@ appRouter.post('/saveEvent', async function (req, res) {
 
   } catch (error) {
     console.error('Error saving event:', error);
-    res.status(500).send("Internal server error occurred while trying to save the event."); // Internal Server Error
+    res.status(500).send("Internal server error occurred while trying to save the event.");
   }
 });
+
 
 appRouter.get("/saveEvent", function (req, res) {
   res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));

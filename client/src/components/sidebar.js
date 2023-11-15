@@ -43,6 +43,7 @@ export default function Sidebar({ onLogout }) {
     // Handle logout logic
     onLogout();
     // Navigate to the /app route after logout
+    localStorage.removeItem('userId');
     navigate("/app");
   };
   
