@@ -310,6 +310,31 @@ appRouter.get("/myevents", async function (req, res) {
   }
 });
 
+// Logout route
+appRouter.get('/logout', (req, res) => {
+  if (req.session) {
+    // Optionally clear the cookie if your app uses it
+    // Do this before destroying the session
+    if (req.session.cookie) {
+      res.clearCookie('connect.sid'); // Adjust 'connect.sid' based on your cookie name
+    }
+
+    // Destroy the session
+    req.session.destroy(err => {
+      if (err) {
+        // Handle the error case
+        console.error('Session destruction error:', err);
+        res.status(500).json({ message: "Error logging out", error: err });
+      } else {
+        res.json({ message: 'Logged out successfully.' });
+      }
+    });
+  } else {
+    // No session to destroy
+    res.status(200).json({ message: 'No active session.' });
+  }
+});
+
 
 module.exports = appRouter;
 
