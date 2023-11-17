@@ -39,12 +39,36 @@ export default function Sidebar({ onLogout }) {
   }, [mini, toggleSidebar]);
   const spacing = '1.25';
 
-  const handleLogoutClick = () => {
-    // Handle logout logic
-    onLogout();
-    // Navigate to the /app route after logout
-    localStorage.removeItem('userId');
-    navigate("/app");
+  const handleLogoutClick = async (event) => {
+    event.preventDefault(); // Prevent default anchor action
+
+    onLogout(); // Call the logout function given by the parent component
+  
+    // Call the server to destroy the session
+    try {
+      const response = await fetch('/logout', {
+        method: 'GET',
+        credentials: 'include', 
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      });
+  
+      const data = await response.json();
+  
+      if (response.ok) {
+        console.log(data); // "Logged out successfully"
+        localStorage.clear();
+        sessionStorage.clear();
+  
+        // Redirect to login page
+        navigate("/login");
+      } else {
+        console.error("Logout failed:", data);
+      }
+    } catch (error) {
+      console.error("Network error during logout:", error);
+    }
   };
   
   return (

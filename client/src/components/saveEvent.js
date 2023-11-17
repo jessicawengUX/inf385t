@@ -12,6 +12,12 @@ function SaveEvent() {
   const [endDate, setEndDate] = useState('');
   const [locationText, setLocationText] = useState('');
   const [additionalInfo, setAdditionalInfo] = useState('');
+
+  // Check if user is logged in
+  const userId = localStorage.getItem('userId');
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(!!userId);
+
+  // New state variable for form validation
   const [isFormValid, setIsFormValid] = useState(false);
 
   // Validate form and check user login status
@@ -62,15 +68,69 @@ function SaveEvent() {
   };
 
   return (
-    <div>
-      <br/><br/><br/><br/><br/>
+    <div className='event-container'>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+
       <h2>Save Event Details</h2>
-      <input type="text" value={eventName} onChange={(e) => setEventName(e.target.value)} placeholder="Event Name" />
-      <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} placeholder="Start Date" />
-      <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} placeholder="End Date" />
-      <input type="text" value={locationText} onChange={(e) => setLocationText(e.target.value)} placeholder="Location" />
-      <input type="text" value={additionalInfo} onChange={(e) => setAdditionalInfo(e.target.value)} placeholder="Additional Info" />
-      <button className={`btn btn-submit ${!isFormValid ? 'disabled-button' : ''}`} onClick={handleSubmit} disabled={!isFormValid}>Save Event Info</button>
+      {/* Form for event details */}
+      <label htmlFor="eventName">Event Name <span className="required-asterisk">*</span></label>
+      <input
+        id="eventName"
+        type="text"
+        value={eventName}
+        onChange={(e) => setEventName(e.target.value)}
+        placeholder="Enter event name"
+      />
+
+      <label htmlFor="startDate">Start Date <span className="required-asterisk">*</span></label>
+      <input
+        id="startDate"
+        type="date"
+        value={startDate}
+        onChange={(e) => setStartDate(e.target.value)}
+      />
+
+      <label htmlFor="endDate">End Date <span className="required-asterisk">*</span></label>
+      <input
+        id="endDate"
+        type="date"
+        value={endDate}
+        onChange={(e) => setEndDate(e.target.value)}
+      />
+
+      <label htmlFor="locationText">Location</label>
+      <input
+        id="locationText"
+        type="text"
+        value={locationText}
+        onChange={(e) => setLocationText(e.target.value)}
+        placeholder="Enter location"
+      />
+
+      <label htmlFor="additionalInfo">Additional Info</label>
+      <input
+        id="additionalInfo"
+        type="text"
+        value={additionalInfo}
+        onChange={(e) => setAdditionalInfo(e.target.value)}
+        placeholder="Enter additional info"
+      />
+      <button 
+        className={`btn btn-submit ${!isFormValid ? 'disabled-button' : ''}`} 
+        onClick={handleSubmit} 
+        disabled={!isFormValid}
+      >
+        Save Event Info
+      </button>
+      {!isUserLoggedIn && (
+        <p className="login-message">
+          Must be logged in to save event.
+        </p>
+      )}
     </div>
   );
 }
