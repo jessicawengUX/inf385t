@@ -1,6 +1,5 @@
 import React, { useState,useEffect } from 'react';
 import html2canvas from 'html2canvas';
-//import { jsPDF } from 'jspdf';
 import { saveAs } from 'file-saver'; 
 
 //import icons in react (BiTargetLock, BiCalendar, BiCaretUp)
@@ -50,6 +49,29 @@ useEffect(() => {
   const location = firstEvent?.location || '';
   const additionalInfo = firstEvent?.additionalInfo || '';
   
+  //delete event card
+  const handleDelete = async (_id) => {
+    try {
+      const response = await fetch(`/myevents/${_id}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // Remove the deleted event from the local state
+        setEventsData((prevData) => prevData.filter((event) => event._id !== _id));
+        console.log(result.message);
+      } else {
+        console.error(result.message);
+      }
+    } catch (error) {
+      console.error('Error deleting event:', error);
+    }
+  };
   
   //Download JPG
   const handleDownloadJpg = () => {
@@ -70,13 +92,15 @@ useEffect(() => {
     return (
       <div className="container mt-main">
         <h3 className="mb-4">My Events</h3>
-        <div className="card event-card">
+
+        {eventsData.map((event) => (
+        <div key={event._id} className="card event-card mt-5">
           <div className="card-body">
-            <h5 className="card-title">{eventName}</h5>
+            <h5 className="card-title">{event.eventName}</h5>
             <h6 className="card-subtitle mb-2 text-body-secondary">
-              Time: {startDate} to {endDate} <br/>
-              Location: {location}<br/>
-              Additional Info: {additionalInfo}
+              Time: {event.startDate} to {event.endDate} <br/>
+              Location: {event.location}<br/>
+              Additional Info: {event.additionalInfo}
             </h6>
             <p className="card-text">Training type, weapon and number to teain</p>
 
@@ -97,7 +121,7 @@ useEffect(() => {
                     <BiEdit size={24} style={{marginRight:spacing+'rem'}} />
                    Edit
                   </button>
-                  <button className="btn btn-delete">
+                  <button className="btn btn-delete" onClick={() => handleDelete(event._id)}>
                     <BiTrash size={24} style={{marginRight:spacing+'rem'}} />
                     Delete
                   </button>
@@ -112,6 +136,7 @@ useEffect(() => {
               </div>
               </div>
             </div>
+          ))}
       </div>
     );
   }
