@@ -4,6 +4,8 @@ const session = require('express-session');
 const nodemailer=require('nodemailer');
 const sha256 = require('sha256');
 
+const { ObjectId } = require('mongodb');
+
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const appRouter = express.Router();
 appRouter.use(express.json());
@@ -286,7 +288,6 @@ appRouter.get("/faq", function (req, res) {
 
 // Route for user to myevents.
 appRouter.get("/myevents", async function (req, res) {
-  //res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
   let db_connect = dbo.getDb();
   
   const userId = req.query.userId; // Use req.query to get the userId from URL parameters
@@ -307,6 +308,32 @@ appRouter.get("/myevents", async function (req, res) {
   } catch (error) {
     res.status(500).json({ message: "Error fetching data", error: error });
     console.log(error);
+  }
+});
+
+// Route to delete an event by ID.
+appRouter.delete("/myevents/:eventId", async function (req, res) {
+  let db_connect = dbo.getDb();
+  const eventId = req.params.eventId;
+
+  if (!eventId) {
+    return res.status(400).send("Event ID is required");
+  }
+
+  try {
+    const result = await db_connect
+      .collection("eventsCollection")
+      .deleteOne({ _id: new ObjectId(eventId) });
+
+    if (result.deletedCount === 1) {
+      res.status(200).json({ message: "Event deleted successfully" });
+    } else {
+      console.log(result);
+      res.status(404).json({ message: "Event not found" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ message: "Error deleting event", error: error });
   }
 });
 
