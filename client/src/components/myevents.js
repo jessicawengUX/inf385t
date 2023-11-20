@@ -1,6 +1,6 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect, Fragment} from 'react';
 import html2canvas from 'html2canvas';
-import { saveAs } from 'file-saver'; 
+import { jsPDF } from 'jspdf';
 
 //import icons in react (BiTargetLock, BiCalendar, BiCaretUp)
 import { BiDownload, BiTrash, BiCaretDown, BiEdit} from "react-icons/bi";
@@ -42,13 +42,91 @@ useEffect(() => {
     fetchData();
   }, [userId]); 
 
-  const firstEvent = eventsData[0] || {}; // Use an empty object as a fallback
-  const eventName = firstEvent?.eventName || '';
-  const startDate = firstEvent?.startDate || '';
-  const endDate = firstEvent?.endDate || '';
-  const location = firstEvent?.location || '';
-  const additionalInfo = firstEvent?.additionalInfo || '';
-  
+  //rendertable
+  const renderTableData = (tableData) => {
+    return tableData.map((tableRow, index) => {
+      if (index===0){
+      const { eventType, ammoType, data } = tableRow;
+      const { TIV, TV, TVI, Total} = data;
+      return (
+      <div key={index}>
+        <h3>{eventType}</h3>
+        <table className="table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>AmmoType</th>
+              <th>TIV</th>
+              <th>TV</th>
+              <th>TVI</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Per Person</td>
+              <td>{ammoType}</td>
+              <td>{TIV}</td>
+              <td>{TV}</td>
+              <td>{TVI}</td>
+              <td>{Total}</td>
+            </tr>
+            <tr className="table-info">
+              <td>X? People</td>
+              <td>{ammoType}</td>
+              <td>{TIV}</td>
+              <td>{TV}</td>
+              <td>{TVI}</td>
+              <td>{Total}</td>
+            </tr>
+          </tbody>
+        </table>
+        </div>
+        );
+        } else { 
+          const { eventType, ammoType, data } = tableRow;
+          const { Day_CBRN, Night, Night_CBRN, Total } = data;
+          return(
+            <div key={index}>
+              <h3>{eventType}</h3>
+              <br/>
+              <table className="table">
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>AmmoType</th>
+                    <th>Day CBRN</th>
+                    <th>Night</th>
+                    <th>Night CBRN</th>
+                    <th>Total</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Per Person</td>
+                    <td>{ammoType}</td>
+                    <td>{Day_CBRN}</td>
+                    <td>{Night}</td>
+                    <td>{Night_CBRN}</td>
+                    <td>{Total}</td>
+                  </tr>
+                  <tr className="table-info">
+                    <td>X? People</td>
+                    <td>{ammoType}</td>
+                    <td>{Day_CBRN*2}</td>
+                    <td>{Night}</td>
+                    <td>{Night_CBRN}</td>
+                    <td>{Total}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+      )
+    }
+    });
+  };
+ 
+
   //delete event card
   const handleDelete = async (_id) => {
     try {
@@ -73,16 +151,28 @@ useEffect(() => {
     }
   };
   
-  //Download JPG
-  const handleDownloadJpg = () => {
-    const content = document.getElementById('tables-container');
+  // This function handles the download PDF button
+  const handleDownloadPdf = () => {
+    // Target the specific container holding the tables
+    const content = document.getElementById('tables-container'); 
   
     html2canvas(content, {
       scale: 3, // You can adjust the scale for better quality
-      useCORS: true,
-    }).then((canvas) => {
-      const imgData = canvas.toDataURL('image/jpeg');
-      saveAs(imgData, 'tables-screenshot.jpg');
+      useCORS: true
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdfWidth = canvas.width;
+      const pdfHeight = canvas.height;
+  
+      // Create a PDF with calculated dimensions
+      const pdf = new jsPDF({
+        orientation: pdfWidth > pdfHeight ? 'landscape' : 'portrait',
+        unit: 'px',
+        format: [pdfWidth, pdfHeight]
+      });
+  
+      pdf.addImage(imgData, 'PNG', 25, 0, pdfWidth-50, pdfHeight);
+      pdf.save('tables-screenshot.pdf');
     });
   };
 
@@ -102,7 +192,10 @@ useEffect(() => {
               Location: {event.location}<br/>
               Additional Info: {event.additionalInfo}
             </h6>
-            <p className="card-text">Training type, weapon and number to teain</p>
+            <p className="card-text">
+              Event Type:  , Weapon Type:  , Number to Train: 
+            </p>
+
 
             <p className="gap-1">
               <div className='d-flex justify-content-between'>
@@ -111,9 +204,9 @@ useEffect(() => {
                     <BiCaretDown size={24} style={{marginRight:spacing+'rem'}} />
                     View Table
                   </button>
-                  <button className="btn btn-event" onClick={handleDownloadJpg}>
+                  <button className="btn btn-event" onClick={handleDownloadPdf}>
                    <BiDownload size={24} style={{marginRight:spacing+'rem'}} />
-                   Download IMG
+                   Download as PDF
                   </button>
                 </div>
                 <div className="flex-row-reverse">
@@ -130,8 +223,13 @@ useEffect(() => {
               </p>
               <div className={`collapse ${collapsibleOpen ? 'show' : ''}`}>
                 <div className="card card-body">
-                  <h4>Ammo Table</h4>
-                  
+                  <h2>Training Qualification Details</h2>
+                  <br/>
+                  <p> Event Type:</p>
+                  <p> Weapon Type:</p>
+                  <p> Number to Train:</p>
+                  <br/>
+                    {renderTableData(event.tableData)}
                 </div>
               </div>
               </div>
