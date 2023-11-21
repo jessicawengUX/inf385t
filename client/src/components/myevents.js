@@ -1,4 +1,4 @@
-import React, { useState,useEffect, Fragment} from 'react';
+import React, { useState,useEffect} from 'react';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
@@ -7,8 +7,40 @@ import { BiDownload, BiTrash, BiCaretDown, BiEdit} from "react-icons/bi";
 import "bootstrap/dist/css/bootstrap.css";
 import "./style.css";
 
-export default function Myevents() {
+function transformData(data, number_to_train) {
+  let result = {};
 
+  data.forEach(item => {
+      if (!result[item.eventType]) {
+          result[item.eventType] = {
+              "_id": item._id,
+              "eventType": item.eventType,
+              "table": []
+          };
+      }
+
+      result[item.eventType].table.push({
+          "per person": 1,
+          "AmmoType": item.ammoType,
+          ...item.data
+      });
+
+      let multipliedData = {};
+      for (let key in item.data) {
+          multipliedData[key] = item.data[key] * number_to_train;
+      }
+
+      result[item.eventType].table.push({
+          "People": number_to_train,
+          "ammoType": item.ammoType,
+          ...multipliedData
+      });
+  });
+
+  return Object.values(result);
+}
+
+export default function Myevents() {
   //Collapsible Content
   const [collapsibleOpen, setCollapsibleOpen] = useState(false);
 
@@ -43,87 +75,41 @@ useEffect(() => {
   }, [userId]); 
 
   //rendertable
-  const renderTableData = (tableData) => {
-    return tableData.map((tableRow, index) => {
-      if (index===0){
-      const { eventType, ammoType, data } = tableRow;
-      const { TIV, TV, TVI, Total} = data;
-      return (
-      <div key={index}>
-        <h3>{eventType}</h3>
-        <table className="table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>AmmoType</th>
-              <th>TIV</th>
-              <th>TV</th>
-              <th>TVI</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Per Person</td>
-              <td>{ammoType}</td>
-              <td>{TIV}</td>
-              <td>{TV}</td>
-              <td>{TVI}</td>
-              <td>{Total}</td>
-            </tr>
-            <tr className="table-info">
-              <td>X? People</td>
-              <td>{ammoType}</td>
-              <td>{TIV}</td>
-              <td>{TV}</td>
-              <td>{TVI}</td>
-              <td>{Total}</td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
-        );
-        } else { 
-          const { eventType, ammoType, data } = tableRow;
-          const { Day_CBRN, Night, Night_CBRN, Total } = data;
-          return(
-            <div key={index}>
-              <h3>{eventType}</h3>
-              <br/>
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>AmmoType</th>
-                    <th>Day CBRN</th>
-                    <th>Night</th>
-                    <th>Night CBRN</th>
-                    <th>Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Per Person</td>
-                    <td>{ammoType}</td>
-                    <td>{Day_CBRN}</td>
-                    <td>{Night}</td>
-                    <td>{Night_CBRN}</td>
-                    <td>{Total}</td>
-                  </tr>
-                  <tr className="table-info">
-                    <td>X? People</td>
-                    <td>{ammoType}</td>
-                    <td>{Day_CBRN*2}</td>
-                    <td>{Night}</td>
-                    <td>{Night_CBRN}</td>
-                    <td>{Total}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-      )
-    }
-    });
+  const renderTableData = (event) => {
+
+    const number_to_train = event.number_to_train ? event.number_to_train : 5;
+    const tableData = event.tableData;
+    const trasformedData = transformData(tableData, number_to_train);
+    console.log(trasformedData);
+
+    return (
+      <>
+        {Object.values(trasformedData).map((item, index) => (
+          <div key={index}>
+          <h3>{item.eventType}</h3>
+          <table className="table">
+            <thead>
+              <tr>
+                {Object.keys(item.table[0]).map((key, i) => (
+                  <th key={i}>{key}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {Object.values(item.table).map((row, i) => (
+              <tr>
+                {Object.values(row).map((value, i) => (
+                <td className="table-info" key={i}>{value}</td>
+                ))}
+              </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
+        ))}
+      </>
+    );
+
   };
  
 
@@ -229,7 +215,7 @@ useEffect(() => {
                   <p> Weapon Type:</p>
                   <p> Number to Train:</p>
                   <br/>
-                    {renderTableData(event.tableData)}
+                    {renderTableData(event)}
                 </div>
               </div>
               </div>
