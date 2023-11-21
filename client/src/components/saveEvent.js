@@ -13,6 +13,11 @@ function SaveEvent() {
   const [locationText, setLocationText] = useState('');
   const [additionalInfo, setAdditionalInfo] = useState('');
 
+  const [numberToTrain, setNumberToTrain] = useState('');
+  const [eventType, setEventType] = useState('');
+  const [weaponType, setWeaponType] = useState('');
+
+
   // Check if user is logged in
   const userId = localStorage.getItem('userId');
   const [isUserLoggedIn, setIsUserLoggedIn] = useState(!!userId);
@@ -26,6 +31,15 @@ function SaveEvent() {
     const isUserLoggedIn = !!loggedInUserId;
     setIsFormValid(!!eventName.trim() && !!startDate && !!endDate && isUserLoggedIn);
   }, [eventName, startDate, endDate]);
+
+    // Effect for updating state based on location
+  useEffect(() => {
+    if (location.state) {
+      setNumberToTrain(location.state.numberToTrain || 0);
+      setEventType(location.state.eventType || '');
+      setWeaponType(location.state.weaponType || '');
+    }
+  }, [location.state]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -43,6 +57,9 @@ function SaveEvent() {
       location: locationText,
       additionalInfo,
       tableData,
+      numberToTrain,
+      eventType,
+      weaponType,
       userId
     };
 
@@ -58,7 +75,7 @@ function SaveEvent() {
       const data = await response.text();
 
       if (response.ok) {
-        navigate('/path-to-redirect');
+        navigate('/myevents');
       } else {
         window.alert(data);
       }

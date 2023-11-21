@@ -102,9 +102,17 @@ function Table() {
   };
   
   const handleSaveData = () => {
-    // Navigate to SaveEvent component with table data
-    navigate('/saveEvent', { state: { tableData: data } });
+    // Assuming location.state contains the necessary details
+    navigate('/saveEvent', { 
+      state: { 
+        tableData: data, 
+        numberToTrain: location.state.number, 
+        eventType: location.state.event, 
+        weaponType: location.state.weapon 
+      } 
+    });
   };
+  
 
   return (
     <div className="container mt-5">
