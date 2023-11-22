@@ -73,31 +73,31 @@ export default function Sidebar({ onLogout }) {
   return (
     <nav role="Side" className="sidebar" id="mySidebar" ref={mySidebarRef}>
       <ol className="nav text-left">
-        <li>
+        <li className="mb-2">
           <NavLink to="/app" className={location.pathname === '/app' ? 'nav-link-active' : ''}>
             <BiAddToQueue size={24} style={{ marginRight: spacing +'em'}} />
             <span>Create Event</span>
           </NavLink>
         </li>
-        <li>
+        <li className="mb-2">
           <NavLink to="/myevents" className={location.pathname === '/myevents' ? 'nav-link-active' : ''}>
             <BiCalendarEvent size={24} style={{ marginRight: spacing+'em' }} />
             <span>My Events</span>
           </NavLink>
         </li>
-        <li>
+        <li className="mb-2">
           <NavLink to="/faq" className={location.pathname === '/faq' ? 'nav-link-active' : ''}>
             <BiInfoCircle size={24} style={{ marginRight: spacing +'em'}} />
             <span>FAQs</span>
           </NavLink>
         </li>
-        <li>
+        <li className="mb-2">
           <a href="/../index_home.html#contact-bg">
             <BiSend size={24} style={{ marginRight: `${spacing}em` }} />
             <span>Contact Us</span>
           </a>
         </li>
-        <li>
+        <li className="logout-link-position">
           <a href="/app" onClick={() => navigate("/app")}>
             <BiLogOut size={24} style={{ marginRight: spacing + 'em' }} onClick={handleLogoutClick} />
             <span onClick={handleLogoutClick}>Log Out</span>
