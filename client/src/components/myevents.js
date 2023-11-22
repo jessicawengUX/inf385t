@@ -40,7 +40,7 @@ function transformData(data, number_to_train) {
   return Object.values(result);
 }
 
-export default function Myevents() {
+function Myevents() {
   //Collapsible Content
   const [collapsibleOpen, setCollapsibleOpen] = useState(false);
 
@@ -80,7 +80,6 @@ useEffect(() => {
     const number_to_train = event.numberToTrain
     const tableData = event.tableData;
     const trasformedData = transformData(tableData, number_to_train);
-    console.log(trasformedData);
 
     //CaculateTotal Requirement
     const ammoTotal = trasformedData.reduce((acc, event) => {
@@ -94,13 +93,11 @@ useEffect(() => {
       });
       return acc;
      }, {});
-     
-     console.log(ammoTotal); 
     
     return (
       <>
         {Object.values(trasformedData).map((item, index) => (
-          <div key={index} className="mt-4">
+          <div key={index} className="mt-4 mb-3">
           <h3>{item.eventType}</h3>
           <table className="table">
             <thead>
@@ -180,7 +177,7 @@ useEffect(() => {
   // This function handles the download PDF button
   const handleDownloadPdf = () => {
     // Target the specific container holding the tables
-    const content = document.getElementById('tables-container'); 
+    const content = document.getElementById('table-container'); 
   
     html2canvas(content, {
       scale: 3, // You can adjust the scale for better quality
@@ -202,6 +199,7 @@ useEffect(() => {
 
 
   const spacing = '0.5';
+  const spacingB = '0.2';
 
     return (
       <div className="container mt-main">
@@ -209,17 +207,17 @@ useEffect(() => {
 
         {eventsData.map((event) => (
         <div key={event._id} className="card event-card mt-5">
-          <div className="card-body">
-            <h5 className="card-title mb-3">{event.eventName}</h5>
-            <h6 className="card-subtitle mb-2">
-              <BiCalendar size={24} style={{marginRight:spacing+'rem'}} /> {event.startDate} to {event.endDate}</h6>
-            <h6 className="card-subtitle mb-2">
-              <BiTargetLock size={24} style={{marginRight:spacing+'rem'}} /> {event.location}</h6>
-            <h6 className="card-subtitle mb-2">
-              <BiNote size={24} style={{marginRight:spacing+'rem'}} /> {event.additionalInfo}</h6>
-            <p className="card-text p-color mb-3">
-              <BiCalendarEvent size={24} style={{marginRight:spacing+'rem'}} /> Event Type: <strong>{event.eventType}</strong>, Weapon Type: <strong>{event.numberToTrain}</strong>, Number to Train: <strong>{event.numberToTrain}</strong>
-            </p>
+          <div className="card-body mt-2">
+            <h4 className="card-title mb-4"><strong>{event.eventName}</strong></h4>
+            <h5 className="card-subtitle mb-2">
+              <BiCalendar size={24} style={{marginBottom: spacingB+'rem', marginRight:spacing+'rem'}} /> {event.startDate} to {event.endDate}</h5>
+            <h5 className="card-subtitle mb-2">
+              <BiTargetLock size={24} style={{marginBottom: spacingB+'rem', marginRight:spacing+'rem'}} /> {event.location}</h5>
+            <h5 className="card-subtitle mb-2">
+              <BiNote size={24} style={{marginBottom: spacingB+'rem',  marginRight:spacing+'rem'}} /> {event.additionalInfo}</h5>
+            <h6 className="card-text p-color mb-3">
+              <BiCalendarEvent size={24} style={{marginBottom: spacingB+'rem', marginRight:spacing+'rem'}} /> Event Type: <strong>{event.eventType}</strong>, Weapon Type: <strong>{event.numberToTrain}</strong>, Number to Train: <strong>{event.numberToTrain}</strong>
+            </h6>
 
 
             <p className="gap-1">
@@ -235,11 +233,11 @@ useEffect(() => {
                   </button>
                 </div>
                 <div className="flex-row-reverse">
-                  <button className="btn btn-edit">
+                  <button className="btn-edit-disabled">
                     <BiEdit size={24} style={{marginRight:spacing+'rem'}} />
                    Edit
                   </button>
-                  <button className="btn btn-delete" onClick={() => handleDelete(event._id)}>
+                  <button className="btn-delete" onClick={() => handleDelete(event._id)}>
                     <BiTrash size={24} style={{marginRight:spacing+'rem'}} />
                     Delete
                   </button>
@@ -247,7 +245,8 @@ useEffect(() => {
               </div>
               </p>
               <div className={`collapse ${collapsibleOpen ? 'show' : ''}`}>
-                <div id="table-container" className="card card-body">
+                <div className="card card-body">
+                  <div id="table-container" className='mt-5 mb-5'>
                   <h2>Training Qualification Details</h2>
                   <br/>
                   <p><strong>Event Type:</strong> {event.eventType}</p>
@@ -255,6 +254,7 @@ useEffect(() => {
                   <p><strong>Number to Train:</strong> {event.numberToTrain}</p>
                   <br/>
                     {renderTableData(event)}
+                  </div>
                 </div>
               </div>
               </div>
@@ -263,4 +263,5 @@ useEffect(() => {
       </div>
     );
   }
-  
+
+  export default Myevents;
