@@ -2,8 +2,7 @@ import React, { useState,useEffect} from 'react';
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
 
-//import icons in react (BiCaretUp)
-import { BiDownload, BiTrash, BiCaretDown, BiEdit, BiCalendar, BiTargetLock, BiNote, BiCalendarEvent} from "react-icons/bi";
+import { BiDownload, BiTrash, BiCaretUp, BiCaretDown, BiEdit, BiCalendar, BiTargetLock, BiNote, BiCalendarEvent} from "react-icons/bi";
 import "bootstrap/dist/css/bootstrap.css";
 import "./style.css";
 
@@ -224,8 +223,8 @@ useEffect(() => {
               <div className='d-flex justify-content-between'>
                 <div className="flex-row">
                   <button className="btn btn-event" onClick={toggleCollapsible}>
-                    <BiCaretDown size={24} style={{marginRight:spacing+'rem'}} />
-                    View Table
+                  {collapsibleOpen ? <BiCaretUp size={24} style={{marginRight:spacing+'rem'}} /> : <BiCaretDown size={24} style={{marginRight:spacing+'rem'}} />}
+                  {collapsibleOpen ? 'Hide Table' : 'Open Table'}
                   </button>
                   <button className="btn btn-event" onClick={handleDownloadPdf}>
                    <BiDownload size={24} style={{marginRight:spacing+'rem'}} />
