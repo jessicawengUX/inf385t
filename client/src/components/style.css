@@ -84,7 +84,7 @@ body {
   background-color: var(--green);
   white-space: nowrap;
   overflow-x: hidden;
-  transition: 0.5s;
+  transition: 0.3s;
 }
 
 .sidebar a{
@@ -100,14 +100,13 @@ body {
 
 .sidebar a:hover{
   color: var(--green);
-  background-color: var(--beige);
+  background-color: var(--grey);
 }
 
-
-.nav .active-link{
-  color: var(--green) !important;        /* Text color for the active link */
-  background-color: var(--beige) !important; /* Background color for the active link */
-}
+.nav-link-active {
+  background-color: var(--beige) !important;
+  color: var(--green) !important;
+ }
 
 /* Progress Line */
 .progress-line {

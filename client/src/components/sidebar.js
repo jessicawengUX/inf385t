@@ -1,9 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
-
-//import react icon will need to put'npm install react-icons' in the client folder
-//library in https://react-icons.github.io/react-icons/search?q=Bilog
 import { BiAddToQueue, BiCalendarEvent, BiInfoCircle, BiSend, BiLogOut } from "react-icons/bi";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useLocation} from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "./style.css";
@@ -70,30 +67,32 @@ export default function Sidebar({ onLogout }) {
       console.error("Network error during logout:", error);
     }
   };
+
+  const location = useLocation();
   
   return (
     <nav role="Side" className="sidebar" id="mySidebar" ref={mySidebarRef}>
       <ol className="nav text-left">
         <li>
-          <NavLink to="/app" activeClassName="active-link">
-            <BiAddToQueue size={24} style={{ marginRight: spacing +'em' }} />
+          <NavLink to="/app" className={location.pathname === '/app' ? 'nav-link-active' : ''}>
+            <BiAddToQueue size={24} style={{ marginRight: spacing +'em'}} />
             <span>Create Event</span>
           </NavLink>
         </li>
         <li>
-          <NavLink to="/myevents" exact activeClassName="active-link">
+          <NavLink to="/myevents" className={location.pathname === '/myevents' ? 'nav-link-active' : ''}>
             <BiCalendarEvent size={24} style={{ marginRight: spacing+'em' }} />
             <span>My Events</span>
           </NavLink>
         </li>
         <li>
-          <NavLink to="/faq" activeClassName="active-link">
+          <NavLink to="/faq" className={location.pathname === '/faq' ? 'nav-link-active' : ''}>
             <BiInfoCircle size={24} style={{ marginRight: spacing +'em'}} />
             <span>FAQs</span>
           </NavLink>
         </li>
         <li>
-          <a href="/../index_home.html#contact-bg" activeClassName="active-link">
+          <a href="/../index_home.html#contact-bg">
             <BiSend size={24} style={{ marginRight: `${spacing}em` }} />
             <span>Contact Us</span>
           </a>
