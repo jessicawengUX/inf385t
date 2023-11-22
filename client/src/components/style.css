@@ -311,6 +311,9 @@ h1 {
   border: 1px solid #ccc;
 }
 
+.p-color{
+  color:#162f16;
+}
 
 /* Styles specificlly for FAQ*/
 .faq-container {
