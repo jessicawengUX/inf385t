@@ -1,14 +1,46 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect} from 'react';
 import html2canvas from 'html2canvas';
-import { saveAs } from 'file-saver'; 
+import { jsPDF } from 'jspdf';
 
-//import icons in react (BiTargetLock, BiCalendar, BiCaretUp)
-import { BiDownload, BiTrash, BiCaretDown, BiEdit} from "react-icons/bi";
+//import icons in react (BiCaretUp)
+import { BiDownload, BiTrash, BiCaretDown, BiEdit, BiCalendar, BiTargetLock, BiNote, BiCalendarEvent} from "react-icons/bi";
 import "bootstrap/dist/css/bootstrap.css";
 import "./style.css";
 
-export default function Myevents() {
+function transformData(data, number_to_train) {
+  let result = {};
 
+  data.forEach(item => {
+      if (!result[item.eventType]) {
+          result[item.eventType] = {
+              "_id": item._id,
+              "eventType": item.eventType,
+              "table": []
+          };
+      }
+
+      result[item.eventType].table.push({
+          "per person": "Per Person",
+          "Ammo Type": item.ammoType,
+          ...item.data
+      });
+
+      let multipliedData = {};
+      for (let key in item.data) {
+          multipliedData[key] = item.data[key] * number_to_train;
+      }
+
+      result[item.eventType].table.push({
+          "People": `x${number_to_train} People`,
+          "Ammo Type": item.ammoType,
+          ...multipliedData
+      });
+  });
+
+  return Object.values(result);
+}
+
+function Myevents() {
   //Collapsible Content
   const [collapsibleOpen, setCollapsibleOpen] = useState(false);
 
@@ -42,13 +74,82 @@ useEffect(() => {
     fetchData();
   }, [userId]); 
 
-  const firstEvent = eventsData[0] || {}; // Use an empty object as a fallback
-  const eventName = firstEvent?.eventName || '';
-  const startDate = firstEvent?.startDate || '';
-  const endDate = firstEvent?.endDate || '';
-  const location = firstEvent?.location || '';
-  const additionalInfo = firstEvent?.additionalInfo || '';
-  
+  //rendertable
+  const renderTableData = (event) => {
+
+    const number_to_train = event.numberToTrain
+    const tableData = event.tableData;
+    const trasformedData = transformData(tableData, number_to_train);
+
+    //CaculateTotal Requirement
+    const ammoTotal = trasformedData.reduce((acc, event) => {
+      event.table.forEach(item => {
+        if (item.People) {
+          if (!acc[item["Ammo Type"]]) {
+            acc[item["Ammo Type"]] = 0;
+          }
+          acc[item["Ammo Type"]] += item.Total;
+        }
+      });
+      return acc;
+     }, {});
+    
+    return (
+      <>
+        {Object.values(trasformedData).map((item, index) => (
+          <div key={index} className="mt-4 mb-3">
+          <h3>{item.eventType}</h3>
+          <table className="table">
+            <thead>
+              <tr>
+                {Object.keys(item.table[0]).map((key, i) => (
+                  <th key={i}>{i === 0 ? (
+                    // the first key
+                    <span></span>
+                  ) : (
+                    // For the rest of the th
+                    key
+                  )}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {Object.values(item.table).map((row ,rowIndex) => (
+              <tr key={rowIndex} className={rowIndex % 2 === 0 ? '' : 'table-info'}>
+                {Object.values(row).map((value, j) => (
+                <td key={j}>{value}</td>
+                ))}
+              </tr>
+              ))}
+            </tbody>
+          </table>
+          </div>
+        ))}
+
+        <div className="mt-4">
+          <h3>Total Ammo Required</h3>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Ammo Type</th>
+                <th>Total Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {Object.entries(ammoTotal).map(([ammoType, totalQuantity]) => (
+                <tr key={ammoType}>
+                  <td>{ammoType}</td>
+                  <td>{totalQuantity}</td>
+                </tr>
+              ))}  
+            </tbody>
+          </table>
+        </div>
+      </>
+    );
+
+  };
+ 
   //delete event card
   const handleDelete = async (_id) => {
     try {
@@ -73,21 +174,32 @@ useEffect(() => {
     }
   };
   
-  //Download JPG
-  const handleDownloadJpg = () => {
-    const content = document.getElementById('tables-container');
+  // This function handles the download PDF button
+  const handleDownloadPdf = () => {
+    // Target the specific container holding the tables
+    const content = document.getElementById('table-container'); 
   
     html2canvas(content, {
       scale: 3, // You can adjust the scale for better quality
-      useCORS: true,
-    }).then((canvas) => {
-      const imgData = canvas.toDataURL('image/jpeg');
-      saveAs(imgData, 'tables-screenshot.jpg');
+      useCORS: true
+    }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png');
+      const pdfWidth = canvas.width;
+      const pdfHeight = canvas.height;
+      const pdf = new jsPDF({
+        orientation: pdfWidth > pdfHeight ? 'landscape' : 'portrait',
+        unit: 'px',
+        format: [pdfWidth, pdfHeight]
+      });
+  
+      pdf.addImage(imgData, 'PNG', 25, 0, pdfWidth-50, pdfHeight);
+      pdf.save('tables-screenshot.pdf');
     });
   };
 
 
   const spacing = '0.5';
+  const spacingB = '0.2';
 
     return (
       <div className="container mt-main">
@@ -95,14 +207,18 @@ useEffect(() => {
 
         {eventsData.map((event) => (
         <div key={event._id} className="card event-card mt-5">
-          <div className="card-body">
-            <h5 className="card-title">{event.eventName}</h5>
-            <h6 className="card-subtitle mb-2 text-body-secondary">
-              Time: {event.startDate} to {event.endDate} <br/>
-              Location: {event.location}<br/>
-              Additional Info: {event.additionalInfo}
+          <div className="card-body mt-2">
+            <h4 className="card-title mb-4"><strong>{event.eventName}</strong></h4>
+            <h5 className="card-subtitle mb-2">
+              <BiCalendar size={24} style={{marginBottom: spacingB+'rem', marginRight:spacing+'rem'}} /> {event.startDate} to {event.endDate}</h5>
+            <h5 className="card-subtitle mb-2">
+              <BiTargetLock size={24} style={{marginBottom: spacingB+'rem', marginRight:spacing+'rem'}} /> {event.location}</h5>
+            <h5 className="card-subtitle mb-2">
+              <BiNote size={24} style={{marginBottom: spacingB+'rem',  marginRight:spacing+'rem'}} /> {event.additionalInfo}</h5>
+            <h6 className="card-text p-color mb-3">
+              <BiCalendarEvent size={24} style={{marginBottom: spacingB+'rem', marginRight:spacing+'rem'}} /> Event Type: <strong>{event.eventType}</strong>, Weapon Type: <strong>{event.numberToTrain}</strong>, Number to Train: <strong>{event.numberToTrain}</strong>
             </h6>
-            <p className="card-text">Training type, weapon and number to teain</p>
+
 
             <p className="gap-1">
               <div className='d-flex justify-content-between'>
@@ -111,17 +227,17 @@ useEffect(() => {
                     <BiCaretDown size={24} style={{marginRight:spacing+'rem'}} />
                     View Table
                   </button>
-                  <button className="btn btn-event" onClick={handleDownloadJpg}>
+                  <button className="btn btn-event" onClick={handleDownloadPdf}>
                    <BiDownload size={24} style={{marginRight:spacing+'rem'}} />
-                   Download IMG
+                   Download as PDF
                   </button>
                 </div>
                 <div className="flex-row-reverse">
-                  <button className="btn btn-edit">
+                  <button className="btn-edit-disabled">
                     <BiEdit size={24} style={{marginRight:spacing+'rem'}} />
                    Edit
                   </button>
-                  <button className="btn btn-delete" onClick={() => handleDelete(event._id)}>
+                  <button className="btn-delete" onClick={() => handleDelete(event._id)}>
                     <BiTrash size={24} style={{marginRight:spacing+'rem'}} />
                     Delete
                   </button>
@@ -130,8 +246,15 @@ useEffect(() => {
               </p>
               <div className={`collapse ${collapsibleOpen ? 'show' : ''}`}>
                 <div className="card card-body">
-                  <h4>Ammo Table</h4>
-                  
+                  <div id="table-container" className='mt-5 mb-5'>
+                  <h2>Training Qualification Details</h2>
+                  <br/>
+                  <p><strong>Event Type:</strong> {event.eventType}</p>
+                  <p><strong>Weapon Type:</strong> {event.numberToTrain}</p>
+                  <p><strong>Number to Train:</strong> {event.numberToTrain}</p>
+                  <br/>
+                    {renderTableData(event)}
+                  </div>
                 </div>
               </div>
               </div>
@@ -140,4 +263,5 @@ useEffect(() => {
       </div>
     );
   }
-  
+
+  export default Myevents;

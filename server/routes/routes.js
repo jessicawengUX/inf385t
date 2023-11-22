@@ -62,39 +62,6 @@ appRouter.get('/app/*', function (req, res) {
     res.sendFile(path.join(__dirname, '..', '..', 'client', 'build', 'index.html'));
 });
 
-
-// Table data route and get requests
-appRouter.route("/api/tableData").get(async function (req, res) {
-  let db_connect = dbo.getDb("ammoForecastTool");
-
-  // Initialize query object
-  let query = {};
-
-  // Check if eventType parameter is provided and use a regex to match the pattern
-  if (req.query.eventType) {
-    query.eventType = new RegExp(req.query.eventType, 'i'); // 'i' for case-insensitive
-  }
-
-  // You can add other query parameters checks here if necessary
-
-  // Clean the query object to remove undefined or empty keys
-  Object.keys(query).forEach(key => {
-    if (query[key] === undefined || query[key] === '') {
-      delete query[key];
-    }
-  });
-
-  // Fetch the data from the database using the constructed query
-  try {
-    const results = await db_connect.collection("individualQualifications")
-      .find(query)
-      .toArray();
-    res.json(results);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching data", error: error });
-  }
-});
-
 appRouter.get("/api/tableData", async function (req, res) {
   let db_connect = dbo.getDb("ammoForecastTool");
 
