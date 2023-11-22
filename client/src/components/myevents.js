@@ -82,6 +82,21 @@ useEffect(() => {
     const trasformedData = transformData(tableData, number_to_train);
     console.log(trasformedData);
 
+    //CaculateTotal Requirement
+    const ammoTotal = trasformedData.reduce((acc, event) => {
+      event.table.forEach(item => {
+        if (item.People) {
+          if (!acc[item["Ammo Type"]]) {
+            acc[item["Ammo Type"]] = 0;
+          }
+          acc[item["Ammo Type"]] += item.Total;
+        }
+      });
+      return acc;
+     }, {});
+     
+     console.log(ammoTotal); 
+    
     return (
       <>
         {Object.values(trasformedData).map((item, index) => (
@@ -124,6 +139,12 @@ useEffect(() => {
               </tr>
             </thead>
             <tbody>
+              {Object.entries(ammoTotal).map(([ammoType, totalQuantity]) => (
+                <tr key={ammoType}>
+                  <td>{ammoType}</td>
+                  <td>{totalQuantity}</td>
+                </tr>
+              ))}  
             </tbody>
           </table>
         </div>
@@ -132,7 +153,6 @@ useEffect(() => {
 
   };
  
-
   //delete event card
   const handleDelete = async (_id) => {
     try {
@@ -169,8 +189,6 @@ useEffect(() => {
       const imgData = canvas.toDataURL('image/png');
       const pdfWidth = canvas.width;
       const pdfHeight = canvas.height;
-  
-      // Create a PDF with calculated dimensions
       const pdf = new jsPDF({
         orientation: pdfWidth > pdfHeight ? 'landscape' : 'portrait',
         unit: 'px',
@@ -229,7 +247,7 @@ useEffect(() => {
               </div>
               </p>
               <div className={`collapse ${collapsibleOpen ? 'show' : ''}`}>
-                <div className="card card-body">
+                <div id="table-container" className="card card-body">
                   <h2>Training Qualification Details</h2>
                   <br/>
                   <p><strong>Event Type:</strong> {event.eventType}</p>
