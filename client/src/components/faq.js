@@ -21,7 +21,7 @@ const Faq = () => {
   ];
 
   return (
-    <div className="container mt-mains">
+    <div className="container mt-main">
       <h1 className="mb-5">Frequently Asked Questions</h1>
       {faqs.map((faq) => (
         <div className="faq-container faq-item">

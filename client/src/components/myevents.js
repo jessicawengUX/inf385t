@@ -212,7 +212,7 @@ useEffect(() => {
   const spacingB = '0.2';
 
     return (
-      <div className="container mt-main ms-main">
+      <div className="container mt-main">
         <h1 className="mb-4">My Events</h1>
 
         {eventsData.map((event) => (
