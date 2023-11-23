@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
+import ProgressBar from "./progressbar-form";
 
 const weaponTypes = {
   individual: ["M4", "M249", "M17", "M110", "M2010", "M107"],
@@ -94,6 +95,7 @@ function Form() {
 
   return (
     <div className="form-container mt-main">
+      <ProgressBar />
       <div className="selection-container">
         <h4><strong>Select Event Type:</strong></h4>
         <div className="btn-group mt-3">

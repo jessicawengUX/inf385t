@@ -1,6 +1,4 @@
 import React from "react";
-//import brandLogo from '../images/zara-logo.png';
-
  
 import "bootstrap/dist/css/bootstrap.css";
 import "./style.css";

@@ -380,7 +380,89 @@ h1 {
   }
  }
 
-.required:after { content:" *"; color:red;}
+ /* Progress Bar */
+.container-progress {
+  text-align: center;
+  display: flex;
+  flex-direction: column !important;
+  align-items: center;
+}
 
- 
- 
+ .progress-container {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 20px;
+  max-width: 100%;
+  width: 500px;
+  align-items: center;
+  font-weight: 600;
+}
+
+.stepper-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  font-size: 16px;
+
+  @media (max-width: 768px) {
+    font-size: 12px;
+  }
+}
+
+.stepper-item::before {
+  position: absolute;
+  border-bottom: 2px solid var(--grey);
+  width: 100%;
+  top: 20px;
+  left: -50%;
+  z-index: 2;
+}
+
+.stepper-item::after {
+  position: absolute;
+  content: "";
+  border-bottom: 2px solid var(--grey);
+  width: 100%;
+  top: 12.5px;
+  left: 50%;
+  z-index: 2;
+}
+
+.stepper-item .step-counter {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--grey);
+  margin-bottom: 6px;
+}
+
+
+.stepper-item.completed .step-counter {
+  background-color: var(--yellow);
+  border: 2px solid var(--black);
+}
+
+.stepper-item.completed::after {
+  position: absolute;
+  content: "";
+  border-bottom: 2px solid var(--black);
+  width: 100%;
+  top: 12.5px;
+  left: 50%;
+  z-index: 3;
+}
+
+.stepper-item:first-child::before {
+  content: none;
+}
+.stepper-item:last-child::after {
+  content: none;
+}
