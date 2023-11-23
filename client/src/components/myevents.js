@@ -226,7 +226,7 @@ useEffect(() => {
             <h5 className="card-subtitle mb-2">
               <BiNote size={24} style={{marginBottom: spacingB+'rem',  marginRight:spacing+'rem'}} /> {event.additionalInfo}</h5>
             <h6 className="card-text p-color mb-3">
-              <BiCalendarEvent size={24} style={{marginBottom: spacingB+'rem', marginRight:spacing+'rem'}} /> Event Type: <strong>{event.eventType}</strong>, Weapon Type: <strong>{event.numberToTrain}</strong>, Number to Train: <strong>{event.numberToTrain}</strong>
+              <BiCalendarEvent size={24} style={{marginBottom: spacingB+'rem', marginRight:spacing+'rem'}} /> Event Type: <strong>{event.eventType}</strong>, Weapon Type: <strong>{event.weaponType}</strong>, Number to Train: <strong>{event.numberToTrain}</strong>
             </h6>
 
 
@@ -260,7 +260,7 @@ useEffect(() => {
                   <h2>Training Qualification Details</h2>
                   <br/>
                   <p><strong>Event Type:</strong> {event.eventType}</p>
-                  <p><strong>Weapon Type:</strong> {event.numberToTrain}</p>
+                  <p><strong>Weapon Type:</strong> {event.weaponType}</p>
                   <p><strong>Number to Train:</strong> {event.numberToTrain}</p>
                   <br/>
                     {renderTableData(event)}
