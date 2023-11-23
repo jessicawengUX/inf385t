@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
+import ProgressBar from "./progressbar-form";
 
 const weaponTypes = {
   individual: ["M4", "M249", "M17", "M110", "M2010", "M107"],
@@ -42,10 +43,10 @@ function Form() {
   const nextButtonStyle = {
     width: '100px', // Set the width you prefer for the bigger button
     height: '30px', // Set the height you prefer for the bigger button
-    backgroundColor: isFormValid ? 'yellow' : 'grey',
+    backgroundColor: isFormValid ? '#FFD130' : 'grey',
     opacity: isFormValid ? 1 : 0.5,
     pointerEvents: isFormValid ? 'auto' : 'none', // Disables the button interaction when form is invalid
-    borderRadius: '0px',
+    borderRadius: '4px',
   };
 
   // Optional: Handler for when you want to save the details
@@ -93,13 +94,11 @@ function Form() {
   };
 
   return (
-    <div className="form-container mt-5">
+    <div className="form-container mt-main">
+      <ProgressBar />
       <div className="selection-container">
-        <br/>
-        <strong style={{ fontSize: "20px" }}>Select Event Type:</strong>
-        <br/>
-        <br/>
-        <div className="btn-group">
+        <h4><strong>Select Event Type:</strong></h4>
+        <div className="btn-group mt-3">
           {Object.keys(weaponTypes).map((event) => (
             <button
               key={event}
@@ -116,12 +115,12 @@ function Form() {
 
       {showDetails && (
         <>
-          <p className="mb-2 mx-auto"><strong style={{ fontSize: "20px" }}>Training Details:</strong></p>
+          <h4 className="mb-4 mx-auto"><strong>Training Details:</strong></h4>
           <div className="container mt-1 container-section">
             <div className="row">
               <div className="col-md-8 form-container">
                 <div className="mb-4">
-                  <label htmlFor="dropdown" className="form-label1">Weapon Type</label>
+                  <label htmlFor="dropdown" className="form-label1 mb-2">Weapon Type</label>
                   <select className="form-select" id="dropdown" value={selectedWeapon} onChange={handleWeaponChange}>
                     {weaponTypes[selectedEvent].map((type) => (
                       <option key={type} value={type}>{type}</option>
@@ -131,7 +130,7 @@ function Form() {
               </div>
               <div className="col-md-4 form-container">
                 <div className="mb-4 mx-auto">
-                  <label htmlFor="textBox" className="form-label2">Number to Train</label>
+                  <label htmlFor="textBox" className="form-label2 mb-2">Number to Train</label>
                   <input 
                   type="number" 
                   className="form-control" 
@@ -151,7 +150,7 @@ function Form() {
 
           <button
             onClick={handleSaveDetails}
-            className="btn btn-lg float-end"
+            className="btn btn-submit float-end"
             style={nextButtonStyle}
             disabled={!isFormValid} // This property will make the button not clickable when the form is invalid
           >

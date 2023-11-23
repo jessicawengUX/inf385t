@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import ProgressBar from "./progressbar-save";
 import "bootstrap/dist/css/bootstrap.css";
+import "./style.css";
 
 function SaveEvent() {
   const location = useLocation();
@@ -85,15 +87,11 @@ function SaveEvent() {
   };
 
   return (
-    <div className='event-container'>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-
-      <h2>Save Event Details</h2>
-      {/* Form for event details */}
+    <div className='mt-main container'>
+      <ProgressBar />
+      <h4 className="mb-4"><strong>Add Event's Details:</strong></h4>
+      <div className='event-container'>
+       {/* Form for event details */}
       <label htmlFor="eventName">Event Name <span className="required-asterisk">*</span></label>
       <input
         id="eventName"
@@ -141,13 +139,14 @@ function SaveEvent() {
         onClick={handleSubmit} 
         disabled={!isFormValid}
       >
-        Save Event Info
+        SAVE
       </button>
       {!isUserLoggedIn && (
-        <p className="login-message">
-          Must be logged in to save event.
+        <p className="login-message mt-2">
+          *Log in to save and manage events.
         </p>
       )}
+    </div>
     </div>
   );
 }

@@ -1,6 +1,4 @@
 import React from "react";
-//import brandLogo from '../images/zara-logo.png';
-
  
 import "bootstrap/dist/css/bootstrap.css";
 import "./style.css";
@@ -13,7 +11,7 @@ export default function Navbar({ isLoggedIn, userName, onLogout }) {
     return (
       <nav role="main" id="navbar" className="navbar navbar-expand-lg navbar-dark --black">
         <div className="container-fluid">
-          <a id="brandfont" className="navbar-brand ms-3" href="/../index_home.html">Ammunition Forecast Tool</a>
+          <a id="brandfont" className="navbar-brand ms-3" href="/">Ammunition Forecast Tool</a>
           <div>
             <ul className="navbar-nav navi-pills me-3">
               {isLoggedIn ? (

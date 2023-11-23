@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.css";
+import ProgressBar from "./progressbar-table";
 
 import html2canvas from 'html2canvas';
 import { jsPDF } from 'jspdf';
@@ -115,10 +116,12 @@ function Table() {
   
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-main">
+      <ProgressBar />
+      <div className="mb-5">
+        <h4><strong>Your Table of Results: </strong></h4>
+      </div>
     <div id="tables-container">
-      <br/>
-      <br/>
       <h2>Training Qualification Details</h2>
       <br/>
       {location.state.event && <p><strong>Event Type:</strong> {location.state.event}</p>}
