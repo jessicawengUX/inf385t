@@ -41,7 +41,7 @@ async function onSubmit(e) {
       localStorage.setItem('userId', data.userId); // Store user ID in local storage
       onLogin(form.email);
       navigate("/app/");
-      window.alert("Logged In Successfully!");
+      // window.alert("Logged In Successfully!");
     } else {
       window.alert(data.message); // Adjust based on server response structure
     }
