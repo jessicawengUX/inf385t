@@ -44,6 +44,10 @@ body {
   margin-top: 7em;
 }
 
+.ms-main{
+  margin-left: 4.75rem;
+}
+
 /*Navbar*/
 #navbar {
   position: fixed;
@@ -85,6 +89,7 @@ body {
   white-space: nowrap;
   overflow-x: hidden;
   transition: 0.3s;
+  z-index:1000;
 }
 
 .sidebar a{
@@ -338,16 +343,15 @@ h1 {
 /* Styles specificlly for FAQ*/
 .faq-container {
   text-align: left;
-  margin: 0 auto;
-  max-width: fit-content;
-  width: 75%; /* Adjust this as per your layout */
+  margin-left:auto;
+  width: 80%; /* Adjust this as per your layout */
 }
 
 .faq-item {
   margin-bottom: 30px;
 }
 
-.faq-item h3 {
+.faq-item h4 {
   font-weight: bold;
 }
 

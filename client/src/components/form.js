@@ -42,10 +42,10 @@ function Form() {
   const nextButtonStyle = {
     width: '100px', // Set the width you prefer for the bigger button
     height: '30px', // Set the height you prefer for the bigger button
-    backgroundColor: isFormValid ? 'yellow' : 'grey',
+    backgroundColor: isFormValid ? '#FFD130' : 'grey',
     opacity: isFormValid ? 1 : 0.5,
     pointerEvents: isFormValid ? 'auto' : 'none', // Disables the button interaction when form is invalid
-    borderRadius: '0px',
+    borderRadius: '4px',
   };
 
   // Optional: Handler for when you want to save the details
@@ -151,7 +151,7 @@ function Form() {
 
           <button
             onClick={handleSaveDetails}
-            className="btn btn-lg float-end"
+            className="btn btn-submit float-end"
             style={nextButtonStyle}
             disabled={!isFormValid} // This property will make the button not clickable when the form is invalid
           >

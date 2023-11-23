@@ -71,6 +71,7 @@ export default function Sidebar({ onLogout }) {
   const location = useLocation();
   
   return (
+    <div className="container">
     <nav role="Side" className="sidebar" id="mySidebar" ref={mySidebarRef}>
       <ol className="nav text-left">
         <li className="mb-2">
@@ -105,5 +106,6 @@ export default function Sidebar({ onLogout }) {
         </li>
       </ol>
     </nav>
+  </div>
   );
 }

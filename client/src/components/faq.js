@@ -1,5 +1,7 @@
 import React from "react";
-import "./style.css"; // Assuming you create a Faq.css file for styling
+import "bootstrap/dist/css/bootstrap.css";
+import "./style.css";
+import { BsCaretRight } from "react-icons/bs"; 
 
 const Faq = () => {
   const faqs = [
@@ -19,16 +21,12 @@ const Faq = () => {
   ];
 
   return (
-    <div className="faq-container mt-main">
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <h1>Frequently Asked Questions</h1>
-      {faqs.map((faq, index) => (
-        <div key={index} className="faq-item">
-          <h3>{faq.question}</h3>
-          <p>{faq.answer}</p>
+    <div className="container mt-mains">
+      <h1 className="mb-5">Frequently Asked Questions</h1>
+      {faqs.map((faq) => (
+        <div className="faq-container faq-item">
+          <h4>{faq.question}</h4>
+          <p><BsCaretRight /> {faq.answer}</p>
         </div>
       ))}
     </div>

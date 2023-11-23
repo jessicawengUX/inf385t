@@ -40,13 +40,24 @@ function transformData(data, number_to_train) {
 }
 
 function Myevents() {
+  
   //Collapsible Content
-  const [collapsibleOpen, setCollapsibleOpen] = useState(false);
+  // const [collapsibleOpen, setCollapsibleOpen] = useState(false);
 
-  const toggleCollapsible = () => {
-    setCollapsibleOpen(!collapsibleOpen);
-  };
-
+  // const toggleCollapsible = () => {
+  //   setCollapsibleOpen(!collapsibleOpen);
+  // };
+  const [openCardId, setOpenCardId] = useState([]);
+  const toggleCollapsible = (id) => {
+    setOpenCardId(prevState => {
+      if (prevState.includes(id)) {
+        return prevState.filter(item => item !== id);
+      } else {
+        return [...prevState, id];
+      }
+    });
+   };   
+   
 
   const userId = localStorage.getItem('userId');
 
@@ -201,8 +212,8 @@ useEffect(() => {
   const spacingB = '0.2';
 
     return (
-      <div className="container mt-main">
-        <h3 className="mb-4">My Events</h3>
+      <div className="container mt-main ms-main">
+        <h1 className="mb-4">My Events</h1>
 
         {eventsData.map((event) => (
         <div key={event._id} className="card event-card mt-5">
@@ -222,9 +233,9 @@ useEffect(() => {
             <p className="gap-1">
               <div className='d-flex justify-content-between'>
                 <div className="flex-row">
-                  <button className="btn btn-event" onClick={toggleCollapsible}>
-                  {collapsibleOpen ? <BiCaretUp size={24} style={{marginRight:spacing+'rem'}} /> : <BiCaretDown size={24} style={{marginRight:spacing+'rem'}} />}
-                  {collapsibleOpen ? 'Hide Table' : 'Open Table'}
+                  <button className="btn btn-event" onClick={() => toggleCollapsible(event._id)}>
+                  {openCardId === event._id ?  <BiCaretUp size={24} style={{marginRight:spacing+'rem'}} /> : <BiCaretDown size={24} style={{marginRight:spacing+'rem'}} />}
+                  {openCardId === event._id ? 'Hide Table' : 'Open Table'}
                   </button>
                   <button className="btn btn-event" onClick={handleDownloadPdf}>
                    <BiDownload size={24} style={{marginRight:spacing+'rem'}} />
@@ -243,7 +254,7 @@ useEffect(() => {
                 </div>
               </div>
               </p>
-              <div className={`collapse ${collapsibleOpen ? 'show' : ''}`}>
+              <div className={`collapse ${openCardId.includes(event._id) ? 'show' : ''}`}>
                 <div className="card card-body">
                   <div id="table-container" className='mt-5 mb-5'>
                   <h2>Training Qualification Details</h2>
