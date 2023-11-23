@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useEffect} from "react";
 // We use Route in order to define the different routes of our application
 import { Route, Routes, Navigate } from "react-router-dom";
 
@@ -21,15 +21,48 @@ const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
 
+  useEffect(() => {
+    // Check for login state in localStorage on component mount
+    const storedIsLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+    const storedUserName = localStorage.getItem('userName') || "";
+
+    setLoggedIn(storedIsLoggedIn);
+    setUserName(storedUserName);
+
+    // Attach event listener when the component mounts
+    window.addEventListener("beforeunload", handleLogoutOnClose);
+
+    // Detach the listener when unmounts
+    return () => {
+      window.removeEventListener("beforeunload", handleLogoutOnClose);
+    };
+  }, []);
+
   const handleLogin = (userName) => {
     setLoggedIn(true);
     setUserName(userName);
+
+    // Save login state and user info in localStorage
+    localStorage.setItem('isLoggedIn', 'true');
+    localStorage.setItem('userName', userName);
   };
 
   const handleLogout = () => {
     setLoggedIn(false);
     setUserName("");
+
+    // Clear login state and user info
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('userName');
   };
+
+  const handleLogoutOnClose = () => {
+    // Perform logout logic when the window is about to close & to remove any sensitive information from local storage
+    localStorage.clear();
+    sessionStorage.clear();
+  };
+
+
 
  return (
    <div>
@@ -44,7 +77,8 @@ const App = () => {
             <Route path="/app" element={<Form />} />
             <Route path="/table" element={<Table />} />
             <Route path="/myevents" element={<Myevents />} />
-            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            {/* Navigate component to redirect if already logged in */}
+            <Route path="/login" element={isLoggedIn ? <Navigate to="/" /> : <Login onLogin={handleLogin} />} />
             <Route path="/register" element={<Register />} />
             <Route path="/saveEvent" element={<SaveEvent />} />
             <Route path="/faq" element={<Faq />} />
@@ -55,6 +89,5 @@ const App = () => {
  );
 };
  export default App;
-
 
 

@@ -14,7 +14,7 @@ export default function Navbar({ isLoggedIn, userName, onLogout }) {
           <a id="brandfont" className="navbar-brand ms-3" href="/">Ammunition Forecast Tool</a>
           <div>
             <ul className="navbar-nav navi-pills me-3">
-              {isLoggedIn ? (
+            {isLoggedIn ? (
                 <li className="nav-item">
                   <span className="nav-link">Hi, {userName}!</span>
                 </li>
