@@ -238,7 +238,7 @@ appRouter.post('/send-email', (req, res) => {
      from: req.body.email,
      to: 'jessica.ts.weng@gmail.com',
      subject: `New Contact Message from ${req.body.name} | Ammo Forecast Tool`,
-     text: `Name: ${req.body.name}\n\nEmail: ${req.body.message}\n\nMessage: ${req.body.message}`
+     text: `Name: ${req.body.name}\n\nEmail: ${req.body.email}\n\nMessage: ${req.body.message}`
    };
 
    transporter.sendMail(mailOptions, (error, info) => {

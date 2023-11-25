@@ -50,13 +50,15 @@ function Myevents() {
   const [openCardId, setOpenCardId] = useState([]);
   const toggleCollapsible = (id) => {
     setOpenCardId(prevState => {
-      if (prevState.includes(id)) {
-        return prevState.filter(item => item !== id);
-      } else {
-        return [...prevState, id];
-      }
+     if (prevState.includes(id)) {
+       return prevState.filter(item => item !== id);
+     } else {
+       return [...prevState, id];
+     }
     });
-   };   
+   };
+   
+
    
 
   const userId = localStorage.getItem('userId');
@@ -233,10 +235,10 @@ useEffect(() => {
             <p className="gap-1">
               <div className='d-flex justify-content-between'>
                 <div className="flex-row">
-                  <button className="btn btn-event" onClick={() => toggleCollapsible(event._id)}>
-                  {openCardId === event._id ?  <BiCaretUp size={24} style={{marginRight:spacing+'rem'}} /> : <BiCaretDown size={24} style={{marginRight:spacing+'rem'}} />}
-                  {openCardId === event._id ? 'Hide Table' : 'Open Table'}
-                  </button>
+                <button className="btn btn-event" onClick={() => toggleCollapsible(event._id)}>
+                  {openCardId?.includes(event._id) ? <BiCaretUp size={24} style={{marginRight:spacing+'rem'}} /> : <BiCaretDown size={24} style={{marginRight:spacing+'rem'}} />}
+                  {openCardId?.includes(event._id) ? 'Hide Table' : 'Open Table'}
+                </button>
                   <button className="btn btn-event" onClick={handleDownloadPdf}>
                    <BiDownload size={24} style={{marginRight:spacing+'rem'}} />
                    Download as PDF
