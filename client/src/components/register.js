@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link } from "react-router-dom";
-import bcrypt from "bcryptjs"; // Import bcryptjs
+//import bcrypt from "bcryptjs"; // Import bcryptjs
 
 
 const sha256 = require('sha256');
