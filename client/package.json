@@ -45,5 +45,9 @@
       "last 1 safari version"
     ]
   },
+  "devDependencies": {
+    "react-scripts": "^5.0.1",
+    "watch": "^1.0.2"
+  },
   "proxy": "http://localhost:5050"
 }
