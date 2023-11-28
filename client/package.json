@@ -1,6 +1,6 @@
 {
   "name": "client",
-  "homepage":"https://inf385t-vfes.vercel.app/index_home.html",
+  "homepage":"https://inf385t-vfes.vercel.app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
