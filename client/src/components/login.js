@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.css";
 import './style.css';
+
 const sha256 = require('sha256');
 
 export default function Login({ onLogin }) {
@@ -27,7 +28,7 @@ async function onSubmit(e) {
   };
 
   try {
-    const response = await fetch("http://localhost:5050/login", {
+    const response = await fetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

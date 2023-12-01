@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import "bootstrap/dist/css/bootstrap.css";
 import { Link } from "react-router-dom";
+
 //import bcrypt from "bcryptjs"; // Import bcryptjs
 
 
@@ -38,7 +39,7 @@ export default function Register() {
       };
       
       try {
-        const response = await fetch("http://localhost:5050/register", {
+        const response = await fetch("/register", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
